@@ -1,8 +1,8 @@
 # EmbeddedUsherSample
 A sample of embedding dossier using Usher
 
-<img src="https://github.microstrategy.com/xiye/EmbeddedSAMLSample/blob/master/login.png" width="600" height="460">
-<img src="https://github.microstrategy.com/xiye/EmbeddedSAMLSample/blob/master/Embedded.png" width="900" height="500">
+<img src="https://raw.githubusercontent.com/MicroStrategy/blob/master/login.png" width="600" height="460">
+<img src="https://raw.githubusercontent.com/MicroStrategy/master/Embedded.png" width="900" height="500">
 
 ### Configuration required for cross origin in Library:
 1. Configure the CORS settings from the library Admin page to accept current origin.
