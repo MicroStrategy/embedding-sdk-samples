@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div class="row">
+        <div id="iframeContainer" style="text-align: center"></div>
+    </div>
+    <script>
+        //initialize the counter
+        let cnt = 0;
+
+        /**
+         * method to redirect to the page of embedded dossier
+         */
+        function redirectPage() {
+            window.location.href = "embed.html";
+        }
+
+        function samlIFrameLoaded() {
+            document.getElementById('samlIframe').onload = function () {
+                cnt++;
+
+                //the iframe will load twice. The first time the hidden form will be loaded and the second time after the user has scanned the QR code, the library page
+                //will be loaded
+
+                //when the iframe was loaded the second time, which a http session has been initiated. At this point, the page will be redirected, so that the
+                //embedded dossier will be rendered.
+                if (cnt === 2) {
+                    //hide the iframe afte redirect
+                    document.getElementById("samlIframe").style.display = "none";
+                    redirectPage();
+                }
+            };
+        }
+
+        document.getElementById('iframeContainer').innerHTML = '<iframe id="samlIframe" src="saml.html" style="border: 0px" height="600px" width="800px" onload="samlIFrameLoaded()"/>';
+
+    </script>
+
+
+</body>
+
+</html>
