@@ -75,16 +75,16 @@ This page shows multiple reports which can be embedded into the page. In "Search
    
 #### Login
 
-![alt text](https://github.microstrategy.com/neelpatel/EmbeddedReportAndDossier/blob/master/ScreenShot/Login.png)
+![alt text](https://github.com/MicroStrategy/embedding-sdk-samples/blob/master/EmbeddedReportAndDossier/ScreenShot/Login.png)
 
 #### Embedded Dossier
 
-![alt text](https://github.microstrategy.com/neelpatel/EmbeddedReportAndDossier/blob/master/ScreenShot/Dossier.png)
+![alt text](https://github.com/MicroStrategy/embedding-sdk-samples/blob/master/EmbeddedReportAndDossier/ScreenShot/Dossier.png)
 
 #### Search Report
 
-![alt text](https://github.microstrategy.com/neelpatel/EmbeddedReportAndDossier/blob/master/ScreenShot/Search%20Report.png)
+![alt text](https://github.com/MicroStrategy/embedding-sdk-samples/blob/master/EmbeddedReportAndDossier/ScreenShot/Search%20Report.png)
 
 #### Embedded Report 
 
-![alt text](https://github.microstrategy.com/neelpatel/EmbeddedReportAndDossier/blob/master/ScreenShot/Report.png)
+![alt text](https://github.com/MicroStrategy/embedding-sdk-samples/blob/master/EmbeddedReportAndDossier/ScreenShot/Report.png)
