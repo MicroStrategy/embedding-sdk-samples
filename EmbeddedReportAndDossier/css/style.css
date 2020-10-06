@@ -1,0 +1,131 @@
+.navbar{
+    margin-bottom: 10px;
+}
+.nav-item{
+    /* font-size: 20pt; */
+    font-size:1.5vw;
+}
+.navbar-brand{
+    /* font-size: 30pt; */
+    font-size:2vw;
+    color:white;
+}
+.navbar-nav{
+    margin-left: 50px;
+}
+.table-striped{
+    font-size:0.9vw;
+}
+#usermessage{
+    color:lightgreen;
+    position:absolute;
+    right:20px;
+    font-size:1.5vw;
+}
+.form-control{
+    margin-bottom: 10px;
+}
+.highlight { 
+    background-color: #f75454 !important;
+}
+#loginbox{
+    width:25%;
+    display:inline-block;
+    text-align:left;
+}
+.outerbox{
+    width:100%;
+    overflow:hidden;
+    text-align:center;
+}
+#dossierTable{
+    width:100%;
+    margin-top:20px;
+    cursor:pointer;
+}
+#dossierTitle{
+    text-align:center;
+    background-color:lightgrey;
+    padding:10px;
+    display:none;
+}
+
+.errorMsg{
+    color:red;
+}
+
+.infoSection{
+    width:100%;
+    display:block;
+    overflow:auto;
+    background-color:lightgray;
+}
+.infoBox{
+    width:40%;
+    float:left;
+    padding:20px;
+    font-size: 1vw;
+}
+.infoCell{
+    padding:5px 10px 5px 5px;
+    text-align: right;
+}
+.scrollableDiv{
+    height:60%;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+.specificTables{
+    width:30%;
+    margin:5px;
+    float:left;
+}
+.tableHeader{
+    white-space:nowrap;
+}
+
+.autocomplete-items{
+    width:65%;
+    max-height:10%;
+    overflow-y: auto;
+}
+.autocomplete-items div {
+    padding: 5px;
+    cursor: pointer;
+    background-color: #fff; 
+    border-bottom: 1px solid #d4d4d4; 
+    width:100%;
+}
+.autocomplete-items div:hover {
+  background-color: silver; 
+}
+.triangle-right {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-left: 10px solid #555;
+    border-bottom: 5px solid transparent;
+    display: inline-block;
+    margin-right: 10px;
+}
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid #555;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.fa-external-link{
+    margin-left:10px;
+}
+.fa-external-link:hover{
+    cursor:alias;
+}
+.threeDivs{
+    width:33%;
+    padding:10px;
+    float:left;
+}

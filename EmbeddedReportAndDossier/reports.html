@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/main.js"></script>
+        <script src="js/API.js"></script>
+        <script src="https://env-218434.customer.cloud.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+
+        <style>
+            tr:hover :not(th){
+                background-color:silver !important;
+            }
+        </style>
+
+    </head>
+            
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="margin-bottom:10px;">
+            <h1 class="navbar navbar-light" style="color:white;">MICROSTRATEGY REST API: Embedding Dossier and Report</h1>
+            <ul class="navbar-nav">
+                <li class="nav-item navbar-text">
+                    <a class="nav-link" href="./dossiers.html">Library</a>
+                </li>
+                <li class="nav-item navbar-text active">
+                    <a class="nav-link" href="./reports.html">Reports</a>
+                </li>
+            </ul>
+            <div class="navbar-text" id="usermessage"></div>
+        </nav>
+        <div style="padding: 10px;">
+            <input id="reportsearch" placeholder="Search Reports..."><button onclick="main()">Search</button>
+        </div>
+        <div style="padding:0px 10px;">
+            <table style="cursor:pointer;" class="table table-striped" id="selectionTable">
+                <tr>
+                    <th>Report Name</th>
+                    <th>Report ID</th>
+                    <th>Description</th>
+                </tr>
+            </table>
+        </div>
+        <div style="padding:0px 10px;">
+            <div id="tableTitle" style="text-align:center;background-color:lightgrey;padding:10px;display:none;"></div>
+            <table class="table table-striped" id="reportTable"></table>
+        </div>
+
+    </body>
+
+    <script>
+        startReport();
+    </script>
+</html>

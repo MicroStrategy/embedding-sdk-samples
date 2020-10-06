@@ -1,0 +1,45 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/API.js"></script>
+    <script src="js/connection.js"></script>
+    <script src="https://env-218434.customer.cloud.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="margin-bottom:10px;">
+        <h1 style="color:white;">MICROSTRATEGY REST API</h1>
+        <div style="color:lightgreen;margin-left:800px;" id="usermessage"></div>
+    </nav>
+
+    <div class="outerbox">
+        <div id="loginbox" class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control" type="text" id="username">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" id="password">
+            <button  type="button" class="btn btn-primary" onclick="main();">Login</button>
+        </div>
+    </div>
+
+</body>
+
+<script>
+ 
+    var baseURL = "https://env-218434.customer.cloud.microstrategy.com/MicroStrategyLibrary";
+    async function main() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var token = await login(baseURL, username, password);
+        sessionStorage.setItem("username", username);
+        sessionStorage.setItem("password", password);
+        sessionStorage.setItem("token", token);
+        if (token) {
+            location.href = "dossiers.html";
+        }
+    }
+</script>
+
+</html>
