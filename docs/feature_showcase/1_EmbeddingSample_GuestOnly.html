@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+  </head>
+  <body onload="load()">
+    <div id="mydossier"></div>
+    <script type="text/javascript">
+      
+      function load() {
+        var container = document.getElementById("mydossier"),
+          url = "https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/837B57D711E941BF000000806FA1298F";
+
+		    microstrategy.dossier.create({
+            url: url,
+            enableResponsive: true,
+            placeholder: container,
+            containerHeight: '1000px'
+        })
+      };
+    </script>
+  </body>
+</html>

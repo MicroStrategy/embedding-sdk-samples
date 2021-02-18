@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+    <style>
+        #rightCol {
+            padding: 10px;
+            border-style: dotted;
+            border-color: blue;
+        }
+
+        #eventTextarea {
+            width: 500px;
+            height: 200px;
+        }
+
+        #clearTextareaButton {
+            float: right;
+        }
+        
+        body {
+         background-color: bisque;
+        }
+
+        .featureTable {
+            border-style: dotted;
+            border-color: red;
+        }
+
+        .filterTable {
+            border-style: dotted;
+            border-color: green;
+        }
+
+        .firstCol {
+            color: red;
+        }
+
+    </style>
+
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                <div>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>Dossier URL:</td>
+                                <td><input type="text" id="dossierURL"
+                                        value="https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/837B57D711E941BF000000806FA1298F" size="150" /></td>
+                            </tr>
+                        </table>
+                        <table class="featureTable">
+                            <tr>
+                                <td ><span class="firstCol">Size</span></td>
+                                <td>
+                                    <span>enableResponsive</span><input type="checkbox" id="enableResponsive" checked>
+                                    <span>containerHeight</span> <input type="text" id="containerHeight" value="1000px">
+                                    <span>containerWidth</span> <input type="text" id="containerWidth" value=""><br/>
+                                    <span>Placeholder Style </span><input type="text" style="width:800px" id="containerStyle" value="" onchange="setContainerStyle()">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td ><span class="firstCol">TOC</span></td>
+                                <td><span>dockedPosition</span>
+                                    <select label="dockedPosition" id="dockedPosition">
+                                        <option value="left">left</option>
+                                        <option value="right">right</option>
+                                        <option value=""></option>
+                                    </select>
+        
+                                    <span>theme</span>
+                                    <select label="theme" id="theme">
+                                        <option value="dark">dark</option>
+                                        <option value="light">light</option>
+                                        <option value=""></option>
+                                    </select>
+        
+                                    <span>canClose</span> <input type="checkbox" id="canClose" unchecked>
+                                    <span>isDocked</span> <input type="checkbox" id="isDocked" checked>
+                                    <span>dockChangeable</span> <input type="checkbox" id="dockChangeable" unchecked></td>
+                            </tr>
+        
+                            <tr>
+                                <td ><span class="firstCol">Navigation Bar</span></td>
+                                <td>
+                                    <span>showNavBar</span> <input type="checkbox" id="showNavBar" checked>
+                                    <span>gotoLibrary</span> <input type="checkbox" id="navigationBar.gotoLibrary" checked>
+                                    <span>toc</span> <input type="checkbox" id="navigationBar.toc" checked>
+                                    <span>bookmark</span> <input type="checkbox" id="navigationBar.bookmark" checked>
+                                    <span>reset</span> <input type="checkbox" id="navigationBar.reset" checked>
+                                    <span>title</span> <input type="checkbox" id="navigationBar.title" checked>
+                                    <span>filter</span> <input type="checkbox" id="navigationBar.filter" checked>
+                                    <span>comment</span> <input type="checkbox" id="navigationBar.comment" checked>
+                                    <span>share</span> <input type="checkbox" id="navigationBar.share" checked>
+                                    <span>options</span> <input type="checkbox" id="navigationBar.options" checked>
+                                    
+                                    <span>search</span> <input type="checkbox" id="navigationBar.search" checked>
+                                    <span>notification</span> <input type="checkbox" id="navigationBar.notification" checked>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td ><span class="firstCol">Collabration</span></td>
+                                <td>
+                                    <span>enableCollaboration</span> <input type="checkbox" id="enableCollab" checked>
+                                </td>
+                            <tr>
+                                <td ><span class="firstCol">Options</span></td>
+                                <td><span>enable</span> <input type="checkbox" id="options.enable" checked>
+                                    <span>help</span> <input type="checkbox" id="options.help" checked>
+                                    <span>logout</span> <input type="checkbox" id="options.logout" checked>
+                                    <span>manage</span> <input type="checkbox" id="options.manage" checked>
+                                    <span>tutorial</span> <input type="checkbox" id="options.tutorial" checked></td>
+                            </tr>
+        
+                            <tr>
+                                <td><span class="firstCol">Filters</span></td>
+                                <td>
+                                    <span>enable</span> <input type="checkbox" id="filters.enable" checked>
+                                    <span>edit</span> <input type="checkbox" id="filters.edit" checked>
+                                    <span>summary</span> <input type="checkbox" id="filters.summary" checked>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="firstCol">Share</span></td>
+                                <td>
+                                    <span>enable</span> <input type="checkbox" id="share.enable" checked>
+                                    <span>invite</span> <input type="checkbox" id="share.invite" checked>
+                                    <span>link</span> <input type="checkbox" id="share.link" checked>
+                                    <span>email</span> <input type="checkbox" id="share.email" checked>
+                                    <span>export</span> <input type="checkbox" id="share.export" checked>
+                                    <span>download</span> <input type="checkbox" id="share.download" checked>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <div>
+                            <input type="button" value="Update Dossier" onclick="updateDossier()" />
+                            <input type="button" value="Remove Dossier" onclick="removeDossier()" />
+                            <input type="button" value="Reset Container Style" onclick="resetContainerStyle()" />
+                            <input type="button" value="Open New Tab" onclick="openNewTab()" />
+                        </div>
+                        <table class="filterTable">
+                            <tr>
+                                <td style="width: 100px;"><span class="firstCol">Filters</span></td>
+                                <td><div id="filterPanel"></div></td>
+                            </tr>
+                        </table>
+                        
+                    </div>
+                    
+                    
+                    </div>
+                    <div>
+                        <button onclick="firstPage()">First Page</button>
+                        <button onclick="previousPage()">Previous Page</button>
+                        <button onclick="nextPage()">Next Page</button>
+                        <button onclick="lastPage()">Last Page</button>
+                        <button onclick="firstChapter()">First Chapter</button>
+                        <button onclick="previousChapter()">Previous Chapter</button>
+                        <button onclick="nextChapter()">Next Chapter</button>
+                        <button onclick="lastChapter()">Last Chapter</button>
+                        <button onClick="closeFilterSummaryBar()">Close Filter Summary</button>
+                        <button onClick="openFilterSummaryBar()">Open Filter Summary</button>
+                    </div>
+            
+                </div>
+            </td>
+            <td >
+                <div id="rightCol">
+                    <div>Events: <button id="clearTextareaButton" onclick="clearTextArea()" >Clear</button></div>
+                    <textarea id="eventTextarea" ></textarea>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="root-container"></div>
+    
+    <script>
+
+        getNavBarFeature = function () {
+            return {
+                enabled: document.getElementById("showNavBar").checked,
+                gotoLibrary: document.getElementById("navigationBar.gotoLibrary").checked,
+                title: document.getElementById("navigationBar.title").checked,
+                toc: document.getElementById("navigationBar.toc").checked,
+                reset: document.getElementById("navigationBar.reset").checked,
+                share: document.getElementById("navigationBar.share").checked,
+                comment: document.getElementById("navigationBar.comment").checked,
+                filter: document.getElementById("navigationBar.filter").checked
+            }
+        }
+        getFilterFeature = function() {
+            return {
+                enabled: document.getElementById("filters.enable").checked,
+                editable: document.getElementById("filters.edit").checked,
+                summary: document.getElementById("filters.summary").checked
+            }
+        }
+
+        getShareFeature = function() {
+            return {
+                enabled: document.getElementById("share.enable").checked,
+                invite: document.getElementById("share.invite").checked,
+                link: document.getElementById("share.link").checked,
+                email: document.getElementById("share.email").checked,
+                export: document.getElementById("share.export").checked,
+                download: document.getElementById("share.download").checked,
+            }
+        }
+
+        getOptionFeature = function() {
+           return {
+                    enabled: document.getElementById("options.enable").checked,
+                    help: document.getElementById("options.help").checked,
+                    manage: document.getElementById("options.manage").checked,
+                    logout: document.getElementById("options.logout").checked,
+                    showTutorials: document.getElementById("options.tutorial").checked,
+                } 
+        }
+
+        getTocFeature = function() {
+            return {
+                dockedPosition: document.getElementById("dockedPosition").value,
+                theme: document.getElementById("theme").value, 
+                canClose: document.getElementById("canClose").checked,
+                dockChangeable:document.getElementById("dockChangeable").checked,
+                isDocked:document.getElementById("isDocked").checked
+            }
+        }
+
+        openNewTab = function() {
+
+            var dossierURL = document.getElementById("dossierURL").value
+            var enableCollaboration = document.getElementById("enableCollab").checked
+            var ui_toc_encoded = encodeURIComponent(JSON.stringify(getTocFeature()))
+            var navBar = getNavBarFeature()
+            var filterFeature = getFilterFeature()
+            var shareFeature = getShareFeature()
+            var optionFeature = getOptionFeature()
+
+            var src = dossierURL+"?"
+                +"app.embedded="+false
+                +"&ui.toc="+ui_toc_encoded
+                +"&app.enableCollaboration="+enableCollaboration
+                +"&feature.filter="+filterFeature.enabled
+                +"&feature.filter.edit="+filterFeature.editable
+                +"&feature.filter.summary="+filterFeature.summary
+                +"&ui.navigation="+navBar.enabled
+                +"&ui.navigation.gotoLibrary="+navBar.gotoLibrary
+                +"&ui.navigation.toc="+navBar.toc
+                +"&ui.navigation.reset="+navBar.reset
+                +"&ui.navigation.title="+navBar.title
+                +"&ui.navigation.share="+navBar.share
+                +"&ui.navigation.comment="+navBar.comment
+                +"&ui.navigation.filter="+navBar.filter
+                +"&feature.share="+filterFeature.enabled
+                +"&feature.share.invite="+filterFeature.invite
+                +"&feature.share.link="+filterFeature.link
+                +"&feature.share.email="+filterFeature.email
+                +"&feature.share.export="+filterFeature.export
+                +"&feature.share.download="+filterFeature.download
+                +"&feature.option="+optionFeature.enabled
+                +"&feature.option.help="+optionFeature.help
+                +"&feature.option.logout="+optionFeature.logout
+                +"&feature.option.manage="+optionFeature.manage
+                +"&feature.option.showTutorials="+optionFeature.showTutorials
+            window.open(src)
+            
+
+        }
+        //Set the dom object value using the text input
+        setContainerStyle = function() {
+            var container = document.getElementById("root-container");
+            container.setAttribute("style",document.getElementById("containerStyle").value)
+
+        }
+        //Update the text input with the live value
+        updateContainerStyle = function() {
+            var container = document.getElementById("root-container");
+            var textInput = document.getElementById("containerStyle");
+            textInput.value = container.getAttribute("style");
+
+        }
+        //Clear container style
+        resetContainerStyle = function() {
+            var container = document.getElementById("root-container");
+            container.style = null
+            var textInput = document.getElementById("containerStyle");
+            textInput.value = container.getAttribute("style");
+        }
+
+        removeDossier = function() {
+            var container = document.getElementById("root-container");
+            microstrategy.dossier.destroy({placeholder: container});            
+        }
+
+        updateDossier = function () {
+
+            var dossierURL = document.getElementById("dossierURL").value
+            var enableCollaboration = document.getElementById("enableCollab").checked
+            var enableResponsive = document.getElementById("enableResponsive").checked
+            var containerHeight = document.getElementById("containerHeight").value
+            var containerWidth = document.getElementById("containerWidth").value
+            var container = document.getElementById("root-container");
+            
+
+            microstrategy.dossier.create({
+                url:dossierURL,
+                enableResponsive: enableResponsive,
+                containerHeight: containerHeight,
+                containerWidth: containerWidth,
+                placeholder: container,
+                enableCollaboration,
+                dockedTOC: getTocFeature(),
+                navigationBar: getNavBarFeature(),
+                optionsFeature: getOptionFeature(),
+                filterFeature: getFilterFeature(),
+                shareFeature: getShareFeature(),
+            }).then((dossier) => {
+                d = dossier;
+                d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_SWITCHED, updateFilters);
+                d.registerEventHandler(microstrategy.dossier.EventType.ON_FILTER_UPDATED, updateTextArea);
+                d.registerEventHandler(microstrategy.dossier.EventType.ON_GRAPHICS_SELECTED, updateTextArea);
+                d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_SWITCHED, updateTextArea);
+                d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_LOADED, updateTextArea);
+                d.registerEventHandler(microstrategy.dossier.EventType.ON_LAYOUT_CHANGED, updateTextArea);
+                d.registerEventHandler(microstrategy.dossier.EventType.ON_VIZ_SELECTION_CHANGED, updateTextArea);
+                d.registerEventHandler(microstrategy.dossier.EventType.ON_DOSSIER_INSTANCE_ID_CHANGE, updateTextArea);
+                d.registerEventHandler(microstrategy.dossier.EventType.ON_ERROR, updateTextArea);
+                updateFilters();
+                updateContainerStyle();
+    
+  
+            });
+        }
+
+        updateTextArea = function(e) {
+            
+            evtName = this.event.data.name;
+            textArea = document.getElementById("eventTextarea");
+            textArea.value += "\n\n"+evtName + "\n\n";
+            
+            if (e) {
+                textArea.value += JSON.stringify(e,null,2);
+            }
+        }
+
+        clearTextArea = function() {
+
+            textArea = document.getElementById("eventTextarea");
+            textArea.value = "";
+        }
+
+        updateFilters = function () {
+
+            d.getFilterList().then((filters) => {
+                filterPanel = document.getElementById("filterPanel");
+                while (filterPanel.firstChild) {
+                    filterPanel.removeChild(filterPanel.lastChild);
+                }
+                i = 0
+                for (filter of filters) {
+                    if (filter) {
+                        
+                        if (filter.filterDetail.items) {
+                            nameSpan = document.createElement("span");
+                            nameSpan.innerText = filter.filterName;
+                            filterPanel.appendChild(nameSpan);
+                            s = document.createElement("select");
+                            s.setAttribute("onchange", "applyFilter(this)");
+                            s.setAttribute("id", "filter" + i);
+                            s.setAttribute("key", filter.filterKey);
+                            o = document.createElement("option");
+                            o.value = "All";
+                            o.innerText = "All";
+                            s.appendChild(o)
+                            for (item of filter.filterDetail.items) {
+                                o = document.createElement("option");
+                                o.value = item.name;
+                                o.innerText = item.name;
+                                s.appendChild(o)
+                            }
+                            filterPanel.appendChild(s)
+                        } else {
+
+                        }
+                    }
+                    i++;
+                }
+
+            })
+        }
+
+        applyFilter = function (element) {
+
+
+            selection = element.value;
+            key = element.getAttribute("key");
+            if (selection === "All") {
+                filter = { "filterInfo": { "key": key } }
+                d.filterSelectAllAttributes(filter)
+            } else {
+                filter = {
+                    "filterInfo": {
+                        "key": key,
+                    },
+                    "selections": [{
+                        "name": selection
+                    }]
+                }
+                d.filterSelectMultiAttributes(filter);
+                // d.filterSelectSingleAttribute(filter);
+            }
+
+
+        }
+
+        firstPage = function () {
+            d.navigateToPage(d.getChapterList()[0].children[0])
+        }
+
+        nextPage = function () {
+            d.goToNextPage();
+        }
+        previousPage = function () {
+            d.goToPrevPage();
+        }
+
+        lastPage = function () {
+            chapters = d.getChapterList()
+            d.navigateToPage(chapters[chapters.length - 1].getLastPage())
+        }
+
+        firstChapter = function () {
+            d.navigateToPage(d.getChapterList()[0].children[0]);
+        }
+
+        nextChapter = function () {
+            d.navigateToPage(d.getCurrentChapter().getNextChapter().getFirstPage());
+        }
+        previousChapter = function () {
+            d.navigateToPage(d.getCurrentChapter().getPrevChapter().getFirstPage());
+        }
+
+        lastChapter = function () {
+            chapters = d.getChapterList()
+            d.navigateToPage(chapters[chapters.length - 1].getFirstPage())
+        }
+
+        closeFilterSummaryBar = function () {
+            d.closeFilterSummaryBar()
+        }
+
+        openFilterSummaryBar = function () {
+            d.openFilterSummaryBar()
+        }
+
+        updateDossier();
+
+        
+    </script>
+
+</body>
