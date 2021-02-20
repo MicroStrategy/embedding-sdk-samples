@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/main.js"></script>
+        <script src="js/API.js"></script>
+        <script src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <h1 class="navbar-brand" style="color:white;">MicroStrategy Embedding Demo: Dossiers</h1>
+
+            <ul class="navbar-nav">
+                <li class="nav-item active navbar-text">
+                    <a class="nav-link" href="./dossiers.html">Library</a>
+                </li>
+                <li class="nav-item navbar-text">
+                    <a class="nav-link" href="./reports.html">Reports</a>
+                </li>
+            </ul>
+            <div class="navbar-text" id="usermessage"></div>
+            <div class="" id="logoutButton" onclick=""></div>
+        </nav>
+
+        <div style="width:100%;overflow:hidden;padding:10px;">
+                <div id="library">
+                    <h3>Library Results</h3>
+                    <table class="table table-striped" id="dossierTable">
+                        <tr>
+                            <th>Dossier Name</th>
+                            <th>Dossier ID</th>
+                            <th>Description</th>
+                        </tr>
+                    </table>
+                </div>
+                <div id="dossierTitle"></div>
+                <div id="dossierPlaceholder"></div>
+        </div>
+
+    </body>
+
+    <script>
+        startLibrary();
+    </script>
+
+</html>

@@ -1,0 +1,73 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/API.js"></script>
+    <!-- <script src="js/connection.js"></script> -->
+    <script src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="margin-bottom:10px;">
+        <h1 style="color:white; text-align:center ">MicroStrategy Embedding Demo</h1>
+        <div style="color:lightgreen;margin-left:800px;" id="usermessage"></div>
+    </nav>
+
+    <div class="outerbox">
+        <div id="loginbox" class="form-group">
+            <label for="baseURL">Server</label>
+            <input class="form-control" type="text" id="baseURL" value="https://demo.microstrategy.com/MicroStrategyLibrary">           
+            <label for="username">Username</label>
+            <input class="form-control" type="text" id="username" value="Guest">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" id="password">
+            <div> 
+                <span>Authentication Mode:</span>
+                <select label="Auth Mode" id="loginMode">
+                    <option value="8">Guest</option>   
+                    <option value="1">Standard</option>
+                    <option value="16">LDAP</option>
+                </select>
+              </div>            
+            <button  type="button" class="btn btn-primary" onclick="main();">Login</button>
+        </div>
+    </div>
+
+</body>
+
+<script>
+ 
+    
+    async function main() {
+        const baseURL = document.getElementById("baseURL").value;
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const loginMode = parseInt(document.getElementById("loginMode").value);
+
+        login(baseURL, username, password, loginMode)
+        .then((token)=> {
+            sessionStorage.setItem("baseURL", baseURL);
+            // sessionStorage.setItem("username", username);
+            // sessionStorage.setItem("password", password);
+            // sessionStorage.setItem("loginMode", loginMode);
+            sessionStorage.setItem("token", token);
+            location.href = "dossiers.html";
+        
+        }).catch(function (error) {
+            console.log(error);
+            // Show message to user
+        })
+        
+
+        // var token = await login(baseURL, username, password);
+        // sessionStorage.setItem("username", username);
+        // sessionStorage.setItem("password", password);
+        // sessionStorage.setItem("token", token);
+        // if (token) {
+        //     location.href = "dossiers.html";
+        // }
+    }
+</script>
+
+</html>

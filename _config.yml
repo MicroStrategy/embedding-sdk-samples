@@ -1,0 +1,8 @@
+theme: jekyll-theme-cayman
+title: MicroStrategy Embedding SDK Samples
+
+exclude:
+  - "page_navigation/src"
+  - "page_navigation/build"
+  - "page_navigation/node_modules"
+  - "page_navigation/public"
