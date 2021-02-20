@@ -1,11 +1,33 @@
 # MicroStrategy Embedding SDK Samples
 
-A collection of samples highlighting functionality and workflows of the Embedding SDK
+A collection of samples highlighting functionality and workflows of the Embedding SDK. 
+
+## MicroStrategy Embedding SDK
+
+MicroStrategy Embedding SDK allows you to quickly embed MicroStrategy Dossier into any web application in a responsive manner. It also allows you to control the behavior of your dossier using JavaScript code, such as navigation, filtering, manipulating the interfaces, event handling, etc. 
+
+
+For more information, please visit the official documentation of [MicroStrategy Embedding SDK](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/EmbeddingSDK/Content/topics/Intro_to_the_Embedding_SDK.htm). 
+
+### How to get MicroStrategy Embedding SDK?
+
+MicroStrategy Embedding SDK is included in your MicroStrategy Library Server.  You can use it from your web application using a URL like this:
+
+
+ https://[YOUR Environment]/MicroStrategyLibrary/javascript/embeddinglib.js
+
+## MicroStrategy REST API
+
+MicroStrategy REST API is the backbone of MicroStrategy's open architecture. MicroStrategy REST API is widely used in this project. 
+
+For more information about MicroStrategy REST API, please visit [the official documentation](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API.htm) and play with [the live API Explorer](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html). 
+
+
 
 
 ## Feature Showcase
 
-Open each example to see what is possible with Embedding SDK. Make sure you check the source code for the implementation.
+This set of examples demonstrate specific features of Embedding SDK. Open each example to see what is possible with Embedding SDK. Make sure you check the source code for the implementation.
 
 | Features | Examples |
 | -----------| --------|
@@ -19,28 +41,30 @@ Open each example to see what is possible with Embedding SDK. Make sure you chec
 | Using dossier instance ID | [Demo](./feature_showcase/7_Use_Dossier_Instance.html)|
 | Customizing the Library Page with URL API | [Demo](./feature_showcase/8_URL_To_LibraryPage.html)|
 
-[See all examples](./feature_showcase/)
 
-[View the source code](https://github.com/MicroStrategy/embedding-sdk-samples/feature_showcase/)
+[Source code](https://github.com/MicroStrategy/embedding-sdk-samples/feature_showcase/)
 
 ## Browsing Library
 
-This example shows how to build a view to show all the dossiers and documents in your library.
+This example shows how to build a web page to show all the dossiers and documents in your library.
 
-[See the demo](./library_browsing/)
+[Demo](./library_browsing/)
 
-[Readme](./library_browsing/README.md)
+[Document](https://github.com/MicroStrategy/embedding-sdk-samples/library_browsing/README.md)
 
-[View the source code](https://github.com/MicroStrategy/embedding-sdk-samples/library_browsing/)
+[Source code](https://github.com/MicroStrategy/embedding-sdk-samples/library_browsing/)
 
 ## Single Dossier Application (React App)
 
-MicroStrategy Dossier can be used as a standalone application.  This example shows how to build a Single Dossier application using Embedding SDK.
+MicroStrategy Dossier can be used as a standalone application.  This example shows how to build a React-based single Dossier application using Embedding SDK.
 
-[Open the Example](./page_navigation/site)
+[Demo](./page_navigation/site)
 
-[View the source code](https://github.com/MicroStrategy/embedding-sdk-samples/page_navigation)
-
-
+[Source code](https://github.com/MicroStrategy/embedding-sdk-samples/page_navigation)
 
 
+## More Examples
+
+- A single-page application with Embedding SDK and REST API and third-party grid library. [Link](https://tutorial.microstrategy.com/Embedding/)
+
+- A multi-tenant demo built on top of 3rd-party JavaScript frameworks. [Link](https://tutorial.microstrategy.com/EmbeddedAnalytics/index.html)
