@@ -46,7 +46,7 @@ function startReport() {
 
     })
     .catch(error => {
-       location.href="index.html";
+       location.href="login.html";
     })
 }
 
@@ -92,7 +92,7 @@ async function embeddedReport(baseURL, reportID,reportName, projectID) {
             //Error during the creation of dossier. If session expired, redirect to login page.
             if([401,403].includes(error.statusCode)) {
                 if (window.confirm(error.message)) {
-                    location.href="index.html";
+                    location.href="login.html";
                 }
             }
         }
@@ -101,7 +101,7 @@ async function embeddedReport(baseURL, reportID,reportName, projectID) {
             //Error after creating the dossier. If session expired, redirect to login page.
             if([401,403].includes(error.statusCode)) {
                 if (window.confirm(error.message)) {
-                    location.href="index.html";
+                    location.href="login.html";
                 }
             }
         });
@@ -158,13 +158,13 @@ function startLibrary() {
         });
     })
     .catch((error)=> {
-        location.href="index.html";
+        location.href="login.html";
     })
     // const response = await getSession(baseURL, token);
     // const session = await response.json();
     // extendSession(baseURL,token)
     // if(response.status!=200){
-    //     location.href="index.html";
+    //     location.href="login.html";
     // }
 
     
@@ -207,7 +207,7 @@ function createDossier(baseURL,projectID,dossierID){
             //Error during the creation of dossier
             if (window.confirm(error.message)) {
                 if([401,403].includes(error.statusCode)) {
-                    location.href="index.html";
+                    location.href="login.html";
                 }
             }
         }
@@ -216,7 +216,7 @@ function createDossier(baseURL,projectID,dossierID){
             //Error after creating the dossier
             if (window.confirm(error.message)) {
                 if([401,403].includes(error.statusCode)) {
-                    location.href="index.html";
+                    location.href="login.html";
                 }
             }
         });

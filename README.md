@@ -48,9 +48,9 @@ This set of examples demonstrate specific features of Embedding SDK. Open each e
 
 This example shows how to build a web page to show all the dossiers and documents in your library.
 
-[Demo](./library_browsing/)
+[Demo](./library_browsing/login.html)
 
-[Document](https://github.com/MicroStrategy/embedding-sdk-samples/library_browsing/README.md)
+[Document](./library_browsing/)
 
 [Source code](https://github.com/MicroStrategy/embedding-sdk-samples/library_browsing/)
 
@@ -59,6 +59,8 @@ This example shows how to build a web page to show all the dossiers and document
 MicroStrategy Dossier can be used as a standalone application.  This example shows how to build a React-based single Dossier application using Embedding SDK.
 
 [Demo](./page_navigation/site)
+
+[Document](./page_navigation/)
 
 [Source code](https://github.com/MicroStrategy/embedding-sdk-samples/page_navigation)
 
