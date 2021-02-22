@@ -44,7 +44,7 @@ This set of examples demonstrate specific features of Embedding SDK. Open each e
 
 [Source code](https://github.com/MicroStrategy/embedding-sdk-samples/feature_showcase/)
 
-## Browsing Library
+## Library Browsing
 
 This example shows how to build a web page to show all the dossiers and documents in your library.
 

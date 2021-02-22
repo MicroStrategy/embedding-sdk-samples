@@ -55,7 +55,7 @@ function startReport() {
  * @param reportName - Report Name
  * @param projectID - Project Id
  */
-async function embeddedReport(baseURL, reportID,reportName, projectID) {
+function embeddedReport(baseURL, reportID,reportName, projectID) {
     
     document.getElementById("tableTitle").innerHTML = "<h3>"+reportName+"</h3>";
     document.getElementById("tableTitle").style.display = "block";

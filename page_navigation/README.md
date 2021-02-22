@@ -7,7 +7,7 @@ This application was bootstrapped with [Create React App](https://github.com/fac
 
 This example shows how to build a web application with MicroStrategy Embedding SDK. This application only uses one dossier, which contains multiple chapters and pages. The page navigation is dynamically loaded on the main page using the event handler of Embedding SDK. 
 
-Compared with the multiple-dossier approach, where each menu item links to one dossier, the performance of this single-dossier application is much better. When the navigate between pages, the assets and html content do not need to be reloaded. When you navigate to an already visited page, the page will be served instantly, because everything has been cached client-side already. 
+Compared with the multiple-dossier approach, where each menu item links to one dossier, the performance of this single-dossier application is much better. When the navigate between pages, the assets and HTML content do not need to be reloaded. When you navigate to an already visited page, the page will be served instantly, because everything has been cached client-side already. 
 
 
 ## Features
@@ -15,7 +15,7 @@ Compared with the multiple-dossier approach, where each menu item links to one d
 This application shows the following features in Embedding SDK.
 
 -  How to build a navigation menu using the table of content in Dossier.  See Menu.js.
--  How to update the page's title using event handlers. See
+-  How to update the page's title using event handlers. See App.js.
 
 
 ## Configuration
