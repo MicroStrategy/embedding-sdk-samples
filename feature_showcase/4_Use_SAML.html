@@ -21,6 +21,27 @@
 <script type="text/javascript">
 
 
+    //This function will automatically show the dossier, if user has already logged into MicroStrategy Library. 
+    function autoLogin() {
+        
+        var options = {
+            method: 'GET',
+            credentials: 'include', // Including cookie
+            mode: 'cors',  // Setting as cors mode for cross origin
+            headers: {'Content-Type': 'application/json'}
+        };
+        const baseURL = document.getElementById("baseURL").value;
+        fetch(baseURL + '/api/auth/token', options)
+        .then(function (response) {
+            if (response.ok) {
+                localStorage.setItem("token", response.headers.get('x-mstr-authtoken'));
+                showDossier();    
+            }
+        }).catch(function (error) {
+            //console.log(error);
+        });
+    }
+
     function loginWithSAML() {
 
         //listen to the message will be sent from MicroStrategy Library login page
@@ -76,6 +97,9 @@
             d = dossier
         });
     }
+
+    autoLogin();
+    
 
 </script>
 

@@ -1,10 +1,26 @@
-# Getting Started with Create React App
 
-This Embedding SDK example was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Single-Dossier Application built with MicroStrategy Embedding SDK
 
-This example shows how to build a web application using one dossier, with page navigation in the main page. 
+## Introduction
 
-## Available Scripts
+This application was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+This example shows how to build a web application with MicroStrategy Embedding SDK. This application only uses one dossier, which contains multiple chapters and pages. The page navigation is dynamically loaded on the main page using the event handler of Embedding SDK. 
+
+Compared with the multiple-dossier approach, where each menu item links to one dossier, the performance of this single-dossier application is much better. When the navigate between pages, the assets and html content do not need to be reloaded. When you navigate to an already visited page, the page will be served instantly, because everything has been cached client-side already. 
+
+
+## Features
+
+This application shows the following features in Embedding SDK.
+
+-  How to build a navigation menu using the table of content in Dossier.  See Menu.js.
+-  How to update the page's title using event handlers. See
+
+
+## Configuration
+
+The setup instructions are the same as [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
