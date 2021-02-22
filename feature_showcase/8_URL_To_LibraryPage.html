@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+        
+        #generatedURL {
+            width: 600px;
+            height:100px;
+        }
+
+        #libraryURL {
+            width:600px;
+        }
+
+        body {
+         background-color: bisque;
+        }
+
+        .featureTable {
+            border-style: dotted;
+            border-color: red;
+        }
+
+        .firstCol {
+            color: red;
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                <div>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>Library URL:</td>
+                                <td><input type="text" id="libraryURL"
+                                        value="https://demo.microstrategy.com/MicroStrategyLibrary/app" /></td>
+                            </tr>
+                        </table>
+                        <table class="featureTable">
+                            <tr>
+                                <td ><span class="firstCol">Navigation Bar</span></td>
+                                <td>
+                                    <span>showNavBar</span> <input type="checkbox" id="showNavBar" checked>
+                                    <span>gotoLibrary</span> <input type="checkbox" id="navigationBar.gotoLibrary" checked>
+                                    <span>title</span> <input type="checkbox" id="navigationBar.title" checked>
+                                    <span>search</span> <input type="checkbox" id="navigationBar.search" checked>
+                                    <span>notification</span> <input type="checkbox" id="navigationBar.notification" checked>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td ><span class="firstCol">Options</span></td>
+                                <td><span>enable</span> <input type="checkbox" id="options.enable" checked>
+                                    <span>help</span> <input type="checkbox" id="options.help" checked>
+                                    <span>logout</span> <input type="checkbox" id="options.logout" checked>
+                                    <span>manage</span> <input type="checkbox" id="options.manage" checked>
+                                    <span>tutorial</span> <input type="checkbox" id="options.tutorial" checked></td>
+                            </tr>  
+                            <tr>
+                                <td ><span class="firstCol">Collabration</span></td>
+                                <td>
+                                    <span>enableCollaboration</span> <input type="checkbox" id="enableCollab" checked>
+                                </td>
+                            <tr>      
+                                                                            
+                        </table>
+                        <table>
+                            <tr>
+                                <td>Generated URL:</td>
+                                <td><textarea id="generatedURL" ></textarea></td>
+                            </tr>
+                        </table>
+
+                        <div>
+
+                            <input type="button" value="Update IFrame" onclick="updateIFrame()" />
+                            <input type="button" value="Open New Tab" onclick="openNewTab()" />
+                        </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="root-container">
+        <iframe id="iframe-placeholder" width="100%" height="1000px"></iframe>
+    </div>
+    
+    <script>
+
+        getNavBarFeature = function () {
+            return {
+                enabled: document.getElementById("showNavBar").checked,
+                gotoLibrary: document.getElementById("navigationBar.gotoLibrary").checked,
+                title: document.getElementById("navigationBar.title").checked,
+                search: document.getElementById("navigationBar.search").checked,
+                notification:document.getElementById("navigationBar.notification").checked
+
+            }
+        }
+
+
+        getOptionFeature = function() {
+           return {
+                    enabled: document.getElementById("options.enable").checked,
+                    help: document.getElementById("options.help").checked,
+                    manage: document.getElementById("options.manage").checked,
+                    logout: document.getElementById("options.logout").checked,
+                    showTutorials: document.getElementById("options.tutorial").checked,
+                } 
+        }
+
+        getURL = function() {
+
+            var libraryURL = document.getElementById("libraryURL").value
+            var enableCollaboration = document.getElementById("enableCollab").checked
+            var navBar = getNavBarFeature()
+            var optionFeature = getOptionFeature()
+
+            var url = libraryURL+"?"
+                +"app.embedded="+false
+                +"&app.enableCollaboration="+enableCollaboration
+                +"&ui.navigation="+navBar.enabled
+                +"&ui.navigation.gotoLibrary="+navBar.gotoLibrary
+                +"&ui.navigation.title="+navBar.title
+                +"&ui.navigation.search="+navBar.search
+                +"&ui.navigation.notification="+navBar.notification
+                +"&feature.options="+optionFeature.enabled
+                +"&feature.options.help="+optionFeature.help
+                +"&feature.options.logout="+optionFeature.logout
+                +"&feature.options.manage="+optionFeature.manage
+                +"&feature.options.showTutorials="+optionFeature.showTutorials
+          
+            return url
+            
+
+        }
+
+        const showURL = function() {
+            const url = getURL()
+            document.getElementById("generatedURL").value = url
+        }
+
+        const updateIFrame = function() {
+            const url = getURL()
+            showURL()
+            document.getElementById("iframe-placeholder").setAttribute("src", url)
+        }
+
+        const openNewTab = function() {
+            const url = getURL()
+            showURL()
+            window.open(url)
+        }
+
+        updateIFrame()
+
+        
+    </script>
+
+</body>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Example</title>
+    <script type="text/javascript" src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+</head>
+<body>
+    <div>This example shows how to do authentication. </div>
+    <div>
+        <div>Server:</span> <input type="text" id="baseURL" value="https://demo.microstrategy.com/MicroStrategyLibrary2" size="100"></div>
+        <div>ProjectID:</div> <input type="text" id="projectId" value="EC70648611E7A2F962E90080EFD58751" size="100"></div>
+        <div>DossierID:</div> <input type="text" id="dossierId" value="4C4BB57C11EB4EFF96550080EF952010" size="100"></div>
+        
+        <div>Username:</span> <input type="text" id="username" value="guest"/></div>
+        <div>Password:</span> <input type="password" id="password"/></div>
+        <div> 
+          <span>Auth Mode:</span>
+          <select label="Auth Mode" id="loginMode">
+            <option value="1">Standard</option>
+            <option value="8">Guest</option>           
+            <option value="16">LDAP</option>
+          </select>
+        </div>
+        <div><input type="submit" value="Show Dossier" onclick="showDossier()"/></div>
+      </div>
+
+<div id="myDossier"></div>
+
+<script type="text/javascript">
+
+
+    function login() {
+
+        var baseURL = document.getElementById("baseURL").value
+        var username = document.getElementById("username").value
+        var password = document.getElementById("password").value
+        var loginMode = parseInt(document.getElementById("loginMode").value)
+        
+        var options = {
+            method: 'POST',
+            credentials: 'include', // Including cookie
+            mode: 'cors',  // Setting as cors mode for cross origin
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                loginMode,
+                username,
+                password
+            })
+        };
+        return fetch(baseURL + '/api/auth/login', options)
+            .then(function (response) {
+                if (response.ok) {
+                    return response.headers.get('x-mstr-authToken');
+                } else {
+                    response.json().then(function(json) {
+                        console.log(json);
+                    });
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    function showDossier() {
+        var baseURL = document.getElementById("baseURL").value
+        var projectId = document.getElementById("projectId").value
+        var dossierId = document.getElementById("dossierId").value
+
+        var placeHolderDiv = document.getElementById("myDossier");
+        var dossierUrl = baseURL +'/app/'+ projectId + '/' + dossierId;
+        microstrategy.dossier.create({
+            placeholder: placeHolderDiv,
+            url: dossierUrl,
+            enableCustomAuthentication: true,
+            enableResponsive: true,
+            customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
+            getLoginToken: login,
+            containerHeight: '1000px',
+            errorHandler: customErrorHandler
+        }).then( function(dossier){
+            d = dossier
+            dossier.addCustomErrorHandler(function(error){
+                //Add custom logic here
+                window.alert("Error after creating of dossier: "+error.message)
+            });
+        });
+    }
+
+    function customErrorHandler(error) {
+        //Add custom logic here
+        window.alert("Error during creating of dossier: "+error.message);
+    }
+
+
+
+</script>
+
+</body>
+</html>
