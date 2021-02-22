@@ -54,9 +54,9 @@ This example shows how to build a web page to show all the dossiers and document
 
 [Source code](https://github.com/MicroStrategy/embedding-sdk-samples/library_browsing/)
 
-## Single Dossier Application (React App)
+## Single-Dossier React Application
 
-MicroStrategy Dossier can be used as a standalone application.  This example shows how to build a React-based single Dossier application using Embedding SDK.
+MicroStrategy Dossier can be used as a standalone application.  This example shows how to build a React-based single-dossier application using MicroStrategy Embedding SDK.
 
 [Demo](./page_navigation/site)
 

@@ -6,3 +6,4 @@ exclude:
   - "page_navigation/build"
   - "page_navigation/node_modules"
   - "page_navigation/public"
+  - "page_navigation/.vscode"

@@ -20,6 +20,7 @@ This application shows the following features in Embedding SDK.
 
 ## Configuration
 
+
 The setup instructions are the same as [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:

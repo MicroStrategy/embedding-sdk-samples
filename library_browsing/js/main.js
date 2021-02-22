@@ -41,8 +41,6 @@ function startReport() {
                 }());
             }
         });
-        // var reports = (await search_response.json()).result;
-        // console.log(reports);
 
     })
     .catch(error => {
@@ -52,13 +50,12 @@ function startReport() {
 
 /**
  * Display selected report as embedded report.
- * @param reportID Report Id
- * @param projectID project Id
- * @returns {Promise<void>}
+* @param baseURL - MicroStrategy Library URL, for example, https://env-XXXXXX.customer.cloud.microstrategy.com/MicroStrategyLibrary
+ * @param reportID - Report Id
+ * @param reportName - Report Name
+ * @param projectID - Project Id
  */
 async function embeddedReport(baseURL, reportID,reportName, projectID) {
-    // var instance = await reportInstance(baseURL,token,projectID,reportID);
-    // console.log(instance);
     
     document.getElementById("tableTitle").innerHTML = "<h3>"+reportName+"</h3>";
     document.getElementById("tableTitle").style.display = "block";
@@ -81,12 +78,8 @@ async function embeddedReport(baseURL, reportID,reportName, projectID) {
         enableCustomAuthentication: true,
         customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
         getLoginToken: function(){
-            // var username = sessionStorage.getItem("username");
-            // var password = sessionStorage.getItem("password");
-            // var auth = login(baseURL,username,password, 1);
             const auth = sessionStorage.getItem("token");
             return Promise.resolve(auth);
-            // return login(baseURL,username,password, 1)
         },
         errorHandler: function(error) {
             //Error during the creation of dossier. If session expired, redirect to login page.
@@ -104,25 +97,25 @@ async function embeddedReport(baseURL, reportID,reportName, projectID) {
                     location.href="login.html";
                 }
             }
-        });
-    });
-
+        })
+    })
 }
 
 
 /**
- *  Display list of library/dossier.
+ *  Display list of dossiers in the Library.
  */
 
-function startLibrary() {
+ function startLibrary() {
     const token = sessionStorage.getItem("token");
     const baseURL = sessionStorage.getItem("baseURL");
+
     getSession(baseURL, token)
     .then((session) => {
 
-        extendSession(baseURL,token);
+        extendSession(baseURL,token)
 
-        document.getElementById("usermessage").innerHTML = "<h3>" + session.fullName + "</h3>";
+        document.getElementById("usermessage").innerHTML = "<h3>" + session.fullName + "</h3>"
         // var project_id = "B7CA92F04B9FAE8D941C3E9B7E0CD754";
         getLibrary(baseURL, token).then((library)=> {
 
@@ -160,12 +153,6 @@ function startLibrary() {
     .catch((error)=> {
         location.href="login.html";
     })
-    // const response = await getSession(baseURL, token);
-    // const session = await response.json();
-    // extendSession(baseURL,token)
-    // if(response.status!=200){
-    //     location.href="login.html";
-    // }
 
     
 }
@@ -196,10 +183,7 @@ function createDossier(baseURL,projectID,dossierID){
         enableCustomAuthentication: true,
         customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
         getLoginToken: async function(){
-            // var username = sessionStorage.getItem("username");
-            // var password = sessionStorage.getItem("password");
-            // var auth = await login(baseURL,username,password);
-            // sessionStorage.setItem("token", token);
+
             const auth = sessionStorage.getItem("token");
             return Promise.resolve(auth);
         },

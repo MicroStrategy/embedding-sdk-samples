@@ -1,10 +1,14 @@
 ## MicroStrategy REST API Example
 
-  This client code is written in Javascript. API.js is behaving Javascript wrapper class for MicroStrategy REST API execution. This client code demonstrated functionalities of dynamic dossier and report embedding.  Also, have a search mechanism for report, based on user search, all reports, we can see in the list. Report and Dossier  will open upon click on it.
+This application demonstrates the functionalities of embedding dossier and report. You can also search report by name. You can see the result in a list view. Report or Dossier will open when you click on it.
 
 ### Configuration
 
-  In main.js file we have configuration settings where need to define the correct base URL to connect MicroStrategy Library in order to execute API calls that work with your environment. With starting of this application, the Login page would appear. Please log in with MicroStrategy username and password.
+API.js is the JavaScript wrapper class for MicroStrategy REST API used by this application. 
+
+The main.js has the business logic for the application. 
+
+You start the application with the login.html, which has a simple login interface. You can change the URL to your MicroStrategy Library for testing. 
 
 ### Dossier Embedding
 
@@ -16,7 +20,7 @@ This page shows multiple reports which can be embedded into the page. In "Search
 
 ### Code Explanation
 
-```fetch()``` method in API.js is to execute MicroStrategy REST API. The response json collected with the help of ```json()``` method. With the help of ```async()``` method, REST API calls would be asynchronous n nature.
+```fetch()``` method in API.js is to execute MicroStrategy REST API. The response json collected with the help of ```json()``` method. With the help of ```async()``` method, REST API calls would be asynchronous nature.
 
 ### Workflow
 
@@ -61,11 +65,11 @@ This page shows multiple reports which can be embedded into the page. In "Search
     ```
    #### Query parameters
            
-     * **type:** It is type of object to be searched.ex: for report = 3. Posible value are defiend in [EnumDSSObjectType](https://lw.microstrategy.com/msdz/msdl/GARelease_Current/docs/ReferenceFiles/reference/com/microstrategy/webapi/EnumDSSXMLObjectTypes.html)
+     * **type:** It is type of object to be searched.ex: for report = 3. Possible values are defined in [EnumDSSObjectType](https://lw.microstrategy.com/msdz/msdl/GARelease_Current/docs/ReferenceFiles/reference/com/microstrategy/webapi/EnumDSSXMLObjectTypes.html)
            
-     * **offset:** is the start point of your response. For example, if offset=2, it will return the report data beginning with the second record. The default value is 0.
+     * **offset:** It is the start point of your response. For example, if offset=2, it will return the report data beginning with the second record. The default value is 0.
    
-     * **limit:** is the end point of your response. For example, if limit = 500, it will return only 500 records of the report. The default value is 1000.
+     * **limit:** It is the end point of your response. For example, if limit = 500, it will return only 500 records of the report. The default value is 1000.
            
    URL:
    
@@ -75,16 +79,16 @@ This page shows multiple reports which can be embedded into the page. In "Search
    
 #### Login
 
-![alt text](https://github.com/MicroStrategy/embedding-sdk-samples/blob/master/EmbeddedReportAndDossier/ScreenShot/Login.png)
+![alt text](./ScreenShot/Login.png)
 
 #### Embedded Dossier
 
-![alt text](https://github.com/MicroStrategy/embedding-sdk-samples/blob/master/EmbeddedReportAndDossier/ScreenShot/Dossier.png)
+![alt text](./ScreenShot/Dossier.png)
 
 #### Search Report
 
-![alt text](https://github.com/MicroStrategy/embedding-sdk-samples/blob/master/EmbeddedReportAndDossier/ScreenShot/Search%20Report.png)
+![alt text](./ScreenShot/Search%20Report.png)
 
 #### Embedded Report 
 
-![alt text](https://github.com/MicroStrategy/embedding-sdk-samples/blob/master/EmbeddedReportAndDossier/ScreenShot/Report.png)
+![alt text](./ScreenShot/Report.png)

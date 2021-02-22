@@ -1,5 +1,4 @@
-// import logo from './logo.svg';
-// import './App.css';
+
 import Menu from "./Menu"
 import Content from "./Content"
 import React, { Component } from 'react'
@@ -18,7 +17,7 @@ class App extends Component {
     const container = document.getElementById("content-container")
 
     let updateTitle = (data) => {
-      console.log("Update Title")
+      
       this.setState((_) => {
         const currCh = window.dossier.children[window.dossier.currentChapterIndex]
         const currPage = currCh.children[currCh.currentPageIndex]
