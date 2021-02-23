@@ -52,7 +52,7 @@ This example shows how to build a web page to show all the dossiers and document
 
 [Document](./library_browsing/)
 
-[Source code](https://github.com/MicroStrategy/embedding-sdk-samples/library_browsing/)
+[Source code](https://github.com/MicroStrategy/embedding-sdk-samples/tree/master/library_browsing)
 
 ## Single-Dossier React Application
 
@@ -62,7 +62,7 @@ MicroStrategy Dossier can be used as a standalone application.  This example sho
 
 [Document](./page_navigation/)
 
-[Source code](https://github.com/MicroStrategy/embedding-sdk-samples/page_navigation)
+[Source code](https://github.com/MicroStrategy/embedding-sdk-samples/tree/master/page_navigation)
 
 
 ## More Examples

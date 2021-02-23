@@ -7,3 +7,8 @@ exclude:
   - "page_navigation/node_modules"
   - "page_navigation/public"
   - "page_navigation/.vscode"
+  - "page_navigation/.*"
+  - "page_navigation/package.json"
+
+  
+
