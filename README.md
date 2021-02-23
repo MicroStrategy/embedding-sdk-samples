@@ -42,7 +42,7 @@ This set of examples demonstrate specific features of Embedding SDK. Open each e
 | Customizing the Library Page with URL API | [Demo](./feature_showcase/8_URL_To_LibraryPage.html)|
 
 
-[Source code](https://github.com/MicroStrategy/embedding-sdk-samples/feature_showcase/)
+[Source code](https://github.com/MicroStrategy/embedding-sdk-samples/tree/master/feature_showcase/)
 
 ## Library Browsing
 
