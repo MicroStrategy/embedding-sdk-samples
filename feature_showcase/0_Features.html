@@ -273,7 +273,7 @@
         //Set the dom object value using the text input
         setContainerStyle = function() {
             var container = document.getElementById("root-container");
-            container.setAttribute("style",document.getElementById("containerStyle").value)
+            container.setAttribute("style",document.getElementById("containerStyle").value);
 
         }
         //Update the text input with the live value
@@ -286,7 +286,7 @@
         //Clear container style
         resetContainerStyle = function() {
             var container = document.getElementById("root-container");
-            container.style = null
+            container.style = null;
             var textInput = document.getElementById("containerStyle");
             textInput.value = container.getAttribute("style");
         }
@@ -298,11 +298,11 @@
 
         updateDossier = function () {
 
-            var dossierURL = document.getElementById("dossierURL").value
-            var enableCollaboration = document.getElementById("enableCollab").checked
-            var enableResponsive = document.getElementById("enableResponsive").checked
-            var containerHeight = document.getElementById("containerHeight").value
-            var containerWidth = document.getElementById("containerWidth").value
+            var dossierURL = document.getElementById("dossierURL").value;
+            var enableCollaboration = document.getElementById("enableCollab").checked;
+            var enableResponsive = document.getElementById("enableResponsive").checked;
+            var containerHeight = document.getElementById("containerHeight").value;
+            var containerWidth = document.getElementById("containerWidth").value;
             var container = document.getElementById("root-container");
             
 
@@ -375,12 +375,12 @@
                             o = document.createElement("option");
                             o.value = "All";
                             o.innerText = "All";
-                            s.appendChild(o)
+                            s.appendChild(o);
                             for (item of filter.filterDetail.items) {
                                 o = document.createElement("option");
                                 o.value = item.name;
                                 o.innerText = item.name;
-                                s.appendChild(o)
+                                s.appendChild(o);
                             }
                             filterPanel.appendChild(s)
                         } else {
@@ -399,8 +399,8 @@
             selection = element.value;
             key = element.getAttribute("key");
             if (selection === "All") {
-                filter = { "filterInfo": { "key": key } }
-                d.filterSelectAllAttributes(filter)
+                filter = { "filterInfo": { "key": key } };
+                d.filterSelectAllAttributes(filter);
             } else {
                 filter = {
                     "filterInfo": {
@@ -418,7 +418,7 @@
         }
 
         firstPage = function () {
-            d.navigateToPage(d.getChapterList()[0].children[0])
+            d.navigateToPage(d.getChapterList()[0].children[0]);
         }
 
         nextPage = function () {
@@ -429,8 +429,8 @@
         }
 
         lastPage = function () {
-            chapters = d.getChapterList()
-            d.navigateToPage(chapters[chapters.length - 1].getLastPage())
+            chapters = d.getChapterList();
+            d.navigateToPage(chapters[chapters.length - 1].getLastPage());
         }
 
         firstChapter = function () {
@@ -445,16 +445,16 @@
         }
 
         lastChapter = function () {
-            chapters = d.getChapterList()
-            d.navigateToPage(chapters[chapters.length - 1].getFirstPage())
+            chapters = d.getChapterList();
+            d.navigateToPage(chapters[chapters.length - 1].getFirstPage());
         }
 
         closeFilterSummaryBar = function () {
-            d.closeFilterSummaryBar()
+            d.closeFilterSummaryBar();
         }
 
         openFilterSummaryBar = function () {
-            d.openFilterSummaryBar()
+            d.openFilterSummaryBar();
         }
 
         updateDossier();
