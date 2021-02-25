@@ -67,6 +67,8 @@ MicroStrategy Dossier can be used as a standalone application.  This example sho
 
 ## More Examples
 
+- View this project at [https://microstrategy.github.io/embedding-sdk-samples/](https://microstrategy.github.io/embedding-sdk-samples/).
+
 - A single-page application with Embedding SDK and REST API and third-party grid library. [Link](https://tutorial.microstrategy.com/Embedding/)
 
 - A multi-tenant demo built on top of 3rd-party JavaScript frameworks. [Link](https://tutorial.microstrategy.com/EmbeddedAnalytics/index.html)

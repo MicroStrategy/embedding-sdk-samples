@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Login Example</title>
     <script type="text/javascript" src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+    <!-- This is for the jsfiddle button. You don't need it in your application.  -->
+    <script type="text/javascript" src="js/jsfiddle.js"></script>    
   </head>
 
   <body>
@@ -32,10 +34,10 @@
     <script type="text/javascript">
       function login() {
 
-        var baseURL = document.getElementById("baseURL").value
-        var username = document.getElementById("username").value
-        var password = document.getElementById("password").value
-        var loginMode = parseInt(document.getElementById("loginMode").value)
+        var baseURL = document.getElementById("baseURL").value;
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var loginMode = parseInt(document.getElementById("loginMode").value);
 
         var options = {
           method: 'POST',
@@ -60,14 +62,14 @@
               });
             }
           }).catch(function(error) {
-            console.log(error);
+            console.log(error)
           });
       }
 
       function showDossier() {
-        var baseURL = document.getElementById("baseURL").value
-        var projectId = document.getElementById("projectId").value
-        var dossierId = document.getElementById("dossierId").value
+        var baseURL = document.getElementById("baseURL").value;
+        var projectId = document.getElementById("projectId").value;
+        var dossierId = document.getElementById("dossierId").value;
 
         var placeHolderDiv = document.getElementById("myDossier");
         var dossierUrl = baseURL + '/app/' + projectId + '/' + dossierId;
@@ -81,10 +83,10 @@
           containerHeight: '1000px',
           errorHandler: customErrorHandler
         }).then(function(dossier) {
-          d = dossier
+          d = dossier;
           dossier.addCustomErrorHandler(function(error) {
             //Add custom logic here
-            window.alert("Error after creating of dossier: " + error.message)
+            window.alert("Error after creating of dossier: " + error.message);
           });
         });
       }
