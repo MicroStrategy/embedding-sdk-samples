@@ -1,49 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <title>Login Example</title>
     <script type="text/javascript" src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
-</head>
-<body>
+  </head>
+
+  <body>
 
     <div>
-        <div>Server:</span> <input type="text" id="baseURL" value="https://aqueduct.microstrategy.com/MicroStrategyLibrary" size="100"></div>
-        <div>ProjectID:</div> <input type="text" id="projectId" value="45DA1A5941770FA74377E69CA8C3B296" size="100"></div>
-        <div>DossierID:</div> <input type="text" id="dossierId" value="29DC402811E79FA99A9D0080EF550AFD" size="100"></div>
-        
-        <div>If you have already logged in,the dossier will show automatically. <br/>
-            Otherwise, you can click <input type="submit" onclick="loginWithSAML()" value="Login with SAML" ></input> to log in. </div>
-        
-      </div>
+      <div>Server:<input type="text" id="baseURL" value="https://aqueduct.microstrategy.com/MicroStrategyLibrary" size="100"></div>
+      <div>ProjectID: <input type="text" id="projectId" value="45DA1A5941770FA74377E69CA8C3B296" size="100"></div>
+      <div>DossierID: <input type="text" id="dossierId" value="29DC402811E79FA99A9D0080EF550AFD" size="100"></div>
 
-<div id="myDossier"></div>
+      <div>If you have already logged in,the dossier will show automatically. <br />
+        Otherwise, you can click <input type="submit" onclick="loginWithSAML()" value="Login with SAML" /> to log in. </div>
 
-<script type="text/javascript">
+    </div>
 
+    <div id="myDossier"></div>
 
-    //This function will automatically show the dossier, if user has already logged into MicroStrategy Library. 
-    function autoLogin() {
-        
+    <script type="text/javascript">
+      //This function will automatically show the dossier, if user has already logged into MicroStrategy Library. 
+      function autoLogin() {
+
         const options = {
-            method: 'GET',
-            credentials: 'include', // Including cookie
-            mode: 'cors',  // Setting as cors mode for cross origin
-            headers: {'Content-Type': 'application/json'}
+          method: 'GET',
+          credentials: 'include', // Including cookie
+          mode: 'cors', // Setting as cors mode for cross origin
+          headers: {
+            'Content-Type': 'application/json'
+          }
         };
         const baseURL = document.getElementById("baseURL").value;
         fetch(baseURL + '/api/auth/token', options)
-        .then(function (response) {
+          .then(function(response) {
             if (response.ok) {
-                localStorage.setItem("token", response.headers.get('x-mstr-authtoken'));
-                showDossier();    
+              localStorage.setItem("token", response.headers.get('x-mstr-authtoken'));
+              showDossier();
             }
-        }).catch(function (error) {
+          }).catch(function(error) {
             //console.log(error);
-        });
-    }
+          });
+      }
 
-    function loginWithSAML() {
+      function loginWithSAML() {
 
         //listen to the message will be sent from MicroStrategy Library login page
         window.addEventListener("message", messageEventListener);
@@ -51,57 +53,57 @@
         const baseURL = document.getElementById("baseURL").value;
 
         //need to store the tab. close it later.
-        this.newTab = window.open(baseURL+"/auth/login-dialog.jsp?loginMode=1048576", "_blank");               
-    };
+        this.newTab = window.open(baseURL + "/auth/login-dialog.jsp?loginMode=1048576", "_blank");
+      };
 
-    function messageEventListener() {
-        
+      function messageEventListener() {
+
         window.removeEventListener("message", messageEventListener);
 
-        if(event.data.type === 'auth-token') {
-            const token = event.data.payload
-            //close tab
-            if(this.newTab) {
-                this.newTab.close();
-                this.newTab = null;
-            }
+        if (event.data.type === 'auth-token') {
+          const token = event.data.payload
+          //close tab
+          if (this.newTab) {
+            this.newTab.close();
+            this.newTab = null;
+          }
 
-            localStorage.setItem("token", token);
-            showDossier();
+          localStorage.setItem("token", token);
+          showDossier();
 
         };
-    }
+      }
 
 
-    function login() {
+      function login() {
         token = localStorage.getItem("token");
-        return Promise.resolve(token); 
-    }
+        return Promise.resolve(token);
+      }
 
-    function showDossier() {
+      function showDossier() {
         var baseURL = document.getElementById("baseURL").value
         var projectId = document.getElementById("projectId").value
         var dossierId = document.getElementById("dossierId").value
 
         var placeHolderDiv = document.getElementById("myDossier");
-        var dossierUrl = baseURL +'/app/'+ projectId + '/' + dossierId;
+        var dossierUrl = baseURL + '/app/' + projectId + '/' + dossierId;
         microstrategy.dossier.create({
-            placeholder: placeHolderDiv,
-            url: dossierUrl,
-            enableCustomAuthentication: true,
-            enableResponsive: true,
-            customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
-            getLoginToken: login,
-            containerHeight: '1000px'
-        }).then( function(dossier){
-            // use the dossier instance if you need
+          placeholder: placeHolderDiv,
+          url: dossierUrl,
+          enableCustomAuthentication: true,
+          enableResponsive: true,
+          customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
+          getLoginToken: login,
+          containerHeight: '1000px'
+        }).then(function(dossier) {
+          // use the dossier instance if you need
         });
-    }
-    
-    autoLogin();
-    
+      }
 
-</script>
+      autoLogin();
 
-</body>
+    </script>
+
+  </body>
+
 </html>
