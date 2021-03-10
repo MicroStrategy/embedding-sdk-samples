@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <title>Login Example</title>
     <style>
-      textarea {
-        width: 600px;
-        height: 100px;
+      pre {
+        width: 100;
       }
 
     </style>
@@ -34,7 +33,7 @@
       </div>
       <div><input type="submit" value="Create Dossier Instance" onclick="createDossierInstance()" /></div>
 
-      <div><textarea id="dossierInstance"></textarea></div>
+      <div><pre id="dossierInstance">Dossier instance json goes here.</pre></div>
       <div><input type="submit" value="Show Dossier" onclick="showDossier()" /></div>
     </div>
 
@@ -83,7 +82,7 @@
               fetch(baseURL + '/api/dossiers/' + dossierId + '/instances', options)
                 .then(response => {
                   response.json().then(json => {
-                    document.getElementById('dossierInstance').value = JSON.stringify(json, null, 2)
+                    document.getElementById('dossierInstance').innerText = JSON.stringify(json, null, 2)
                   })
                 })
 
@@ -101,7 +100,7 @@
         var baseURL = document.getElementById("baseURL").value
         var projectId = document.getElementById("projectId").value
         var dossierId = document.getElementById("dossierId").value
-        var dossierInstance = JSON.parse(document.getElementById("dossierInstance").value)
+        var dossierInstance = JSON.parse(document.getElementById("dossierInstance").innerText)
         var placeHolderDiv = document.getElementById("myDossier");
         var dossierUrl = baseURL + '/app/' + projectId + '/' + dossierId;
 
