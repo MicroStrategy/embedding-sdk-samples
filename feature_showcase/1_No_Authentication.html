@@ -23,7 +23,45 @@
             url: url,
             enableResponsive: true,
             placeholder: container,
-            containerHeight: '1000px'
+            containerHeight: '1000px',
+            enableCollaboration: false,
+            dockedTOC: {
+                dockedPosition: 'right',
+                theme: 'light',
+                canClose: false,
+                dockChangeable: false,
+                isDocked:true
+            },
+            navigationBar: {
+                enabled: false,
+                gotoLibrary: false,
+                title: false,
+                toc: false,
+                reset: false,
+                share: false,
+                comment: false,
+                filter: false              
+            },
+            optionsFeature: {
+                enabled: false,
+                help: true,
+                manage: true,
+                logout: true,
+                showTutorials: true
+            } ,
+            filterFeature: {
+                enabled: false,
+                editable: false,
+                summary: true
+            },
+            shareFeature: {
+                enabled: false,
+                invite: false,
+                link: false,
+                email: false,
+                export: false,
+                download: false
+            }            
         })
       });
 
