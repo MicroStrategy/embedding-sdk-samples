@@ -62,17 +62,12 @@
 
         window.removeEventListener("message", messageEventListener);
 
-        if (event.data.type === 'auth-token') {
-          const token = event.data.payload
+        autoLogin();
+
           //close tab
           if (this.newTab) {
             this.newTab.close();
             this.newTab = null;
-          }
-
-          localStorage.setItem("token", token);
-          showDossier();
-
         };
       }
 
