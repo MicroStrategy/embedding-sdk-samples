@@ -39,9 +39,10 @@
         fetch(baseURL + '/api/auth/token', options)
           .then(function(response) {
             if (response.ok) {
-              localStorage.setItem("token", response.headers.get('x-mstr-authtoken'));
+              //If we have auth token, show dossier.
               showDossier();
-            }
+            } 
+            // on else, you can decided show login button.
           }).catch(function(error) {
             //console.log(error);
           });
@@ -60,26 +61,41 @@
 
       function messageEventListener() {
 
+        //SAML auth is complete
         window.removeEventListener("message", messageEventListener);
 
-        if (event.data.type === 'auth-token') {
-          const token = event.data.payload
+        showDossier();
+
           //close tab
           if (this.newTab) {
             this.newTab.close();
             this.newTab = null;
-          }
-
-          localStorage.setItem("token", token);
-          showDossier();
-
         };
       }
 
 
       function login() {
-        token = localStorage.getItem("token");
-        return Promise.resolve(token);
+        const options = {
+          method: 'GET',
+          credentials: 'include', // Including cookie
+          mode: 'cors', // Setting as cors mode for cross origin
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        };
+        const baseURL = document.getElementById("baseURL").value;
+        return fetch(baseURL + '/api/auth/token', options)
+          .then(function(response) {
+              if (response.ok) {
+                return response.headers.get('x-mstr-authtoken');
+              } else {
+                response.json().then(function(json) {
+                  console.log(json);
+                });
+              }
+            }).catch(function(error) {
+              console.log(error)
+            });       
       }
 
       function showDossier() {
