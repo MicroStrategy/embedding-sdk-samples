@@ -16,13 +16,10 @@
       <div>ProjectID: <input type="text" id="projectId" value="B7CA92F04B9FAE8D941C3E9B7E0CD754" size="100"></div>
       <div>DossierID: <input type="text" id="dossierId" value="F6252B9211E7B348312C0080EF55DB6A" size="100"></div>
 
-      <p>The <input type="submit" onclick="autoLogin()" value="autoLogin()" /> function can be used to automatically show dossier if the user has already logged in.</p>
-      <p>Otherwise, you can click <input type="submit" onclick="loginWithSAML()" value="Login with SAML" /> to log in. 
-      </p>
-      <p>This solution works on MicroStrategy 2021+, except Update 2. See another example for Update 2. This solution works for both SAML (loginMode=1048576) and OIDC (loginMode=4194304) authentications. Just need to change the loginMode parameter.</p>
-      <p>
-        If you need this for MicroStrategy 2020, you need to add login-dialog.jsp to your library server under auth directory. You can find a copy in MicroStrategy 2021 Library Server.
-      </p>
+      <div>The <input type="submit" onclick="autoLogin()" value="autoLogin()" /> function can be used to automatically show dossier if the user has already logged in.</div>
+      <div>Otherwise, you can click <input type="submit" onclick="loginWithSAML()" value="Login with SAML" /> to log in. 
+      </div>
+      <div>This solution works on MicroStrategy 2021 Update 2. This solution works for both SAML (loginMode=1048576) and OIDC (loginMode=4194304) authentications. Just need to change the loginMode parameter.</div>
     </div>
 
     <div id="myDossier"></div>
@@ -53,6 +50,34 @@
         })
       }
 
+      //This function will keep checking auth token.
+      async function checkLogin(startTime, timeout, interval) {
+        const currentTime = Date.now()
+        let token = await getAuthToken().catch((error) => {
+          return null
+        })
+        // If auth token is valid return it
+        if (!!token) {
+          if (newTab && !newTab.closed) {
+            newTab.close()
+          }
+          showDossier()
+        } else if (currentTime - startTime > timeout) {
+          if (newTab && !newTab.closed) {
+            newTab.close()
+          }
+          console.log("SAML login timed out, please try again");
+          return null
+        } else {
+          // Check if the user logged in already every interval milliseconds
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              resolve(checkLogin(startTime, timeout, interval))
+            }, interval)
+          })
+        }
+      }
+
       //This function will automatically show the dossier, if user has already logged into MicroStrategy Library. 
       function autoLogin() {
 
@@ -64,32 +89,21 @@
         })
       }
 
+      //This function will start the SAML/OIDC authentication workflow.
       function loginWithSAML() {
-
-        //listen to the message will be sent from MicroStrategy Library login page
-        window.addEventListener("message", messageEventListener);
 
         const baseURL = document.getElementById("baseURL").value;
 
         //need to store the tab. close it later.
-        this.newTab = window.open(baseURL + "/auth/login-dialog.jsp?loginMode=1048576&callback-origin="
-        + encodeURIComponent(location.origin), "_blank");
+        this.newTab = window.open(baseURL + "/auth/login-dialog.jsp?loginMode=1048576", "_blank");
+
+        //Keep checking auth token every 2 seconds for up to 2 minutes.
+        const startTime = Date.now()
+        checkLogin(startTime, 12000, 2000)        
+
       };
 
-      function messageEventListener() {
-
-        //SAML auth is complete
-        window.removeEventListener("message", messageEventListener);
-
-        showDossier();
-
-          //close tab
-          if (this.newTab) {
-            this.newTab.close();
-            this.newTab = null;
-        };
-      }
-
+      // Embed the dossier
       function showDossier() {
         var baseURL = document.getElementById("baseURL").value
         var projectId = document.getElementById("projectId").value
