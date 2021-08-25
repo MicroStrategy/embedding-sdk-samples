@@ -33,9 +33,11 @@ This set of examples demonstrate specific features of Embedding SDK. Open each e
 | -----------| --------|
 | Dossier page customization,  page navigation, filters, and event handler | [Demo](./feature_showcase/0_Features.html)
 | Guest authentication | [Demo](./feature_showcase/1_No_Authentication.html)|
+| Guest authentication with multiple modes | [Demo](./feature_showcase/1_2_Guest_With_MultiAuth.html)|
 | Authentication with auth token | [Demo](./feature_showcase/2_Use_Auth_Token.html)|
 | Authentication with Identity Token | [Demo](./feature_showcase/3_Use_IdentityToken.html)|
 | SAML authentication  | [Demo](./feature_showcase/4_Use_SAML.html)|
+| SAML authentication 2021 SP2 | [Demo](./feature_showcase/4_Use_SAML_v2021_SP2.html)|
 | Custom error handler | [Demo](./feature_showcase/5_ErrorHandling.html)|
 | Filter configuration | [Demo](./feature_showcase/6_Filters.html)|
 | Using dossier instance ID | [Demo](./feature_showcase/7_Use_Dossier_Instance.html)|
