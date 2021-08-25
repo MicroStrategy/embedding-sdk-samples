@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="https://demo.microstrategy.com/MicroStrategyLibrary2/javascript/embeddinglib.js"></script>
+    <!-- This is for the jsfiddle button. You don't need it in your application.  -->
+    <script type="text/javascript" src="js/jsfiddle.js"></script>    
+    
+  </head>
+  <body>
+    
+    <div>This example shows guest authentication with multiple authentication modes enabled. </div>
+    <div id="mydossier"></div>
+
+    <script type="text/javascript">
+        var baseURL = "https://demo.microstrategy.com/MicroStrategyLibrary2";
+        var projectId = "EC70648611E7A2F962E90080EFD58751";
+        var dossierId = "837B57D711E941BF000000806FA1298F";
+        function login() {
+          var options = {
+            method: 'POST',
+            credentials: 'include', // Including cookie
+            mode: 'cors', // Setting as cors mode for cross origin
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              loginMode: 8 // Login as guest user.
+            })
+          };
+          return fetch(baseURL + '/api/auth/login', options)
+          .then(function (response) {
+            if (response.ok) {
+              return response.headers.get('x-mstr-authToken');
+            } else {
+              response.json().then(function(json) {
+                console.log(json);
+              });
+            }
+          }).catch(function (error) {
+            console.log(error);
+          });
+        }
+
+        document.addEventListener("DOMContentLoaded", function(){
+          var placeHolderDiv = document.getElementById("mydossier");
+          var dossierUrl = baseURL +'/app/'+ projectId + '/' + dossierId;
+          microstrategy.dossier.create({
+            placeholder: placeHolderDiv,
+            url: dossierUrl,
+            enableCustomAuthentication: true,
+            enableResponsive: true,
+            customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
+            getLoginToken: login
+          });
+        });
+
+    </script>
+
+  </body>
+</html>
