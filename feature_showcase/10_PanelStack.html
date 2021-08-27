@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <script
+      type="text/javascript"
+      src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"
+    ></script>
+    <!-- This is for the jsfiddle button. You don't need it in your application.  -->
+    <script type="text/javascript" src="js/jsfiddle.js"></script>
+  </head>
+  <body>
+    <div>
+      This example shows how to use Embedding SDK for Dossier with PanelStacks.
+    </div>
+
+    <div id="panelStacksPanel"></div>
+
+    <div id="mydossier"></div>
+    <script type="text/javascript">
+      var url = "https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/5587CB0B11EB8297835E0080AFEB08B5/W997CC8D03CCF4777942A0A56C96D5B4A--K46";
+      
+      document.addEventListener("DOMContentLoaded", function () {
+        var container = document.getElementById("mydossier");
+        
+        microstrategy.dossier
+          .create({
+            url: url,
+            enableResponsive: true,
+            placeholder: container,
+            containerHeight: "1000px",
+            enableCollaboration: false,
+            dockedTOC: {
+              canClose: true,
+              dockChangeable: false,
+              isDocked: false,
+            },
+            navigationBar: {
+              enabled: false,
+            },
+          })
+          .then((dossier) => {
+            d = dossier;
+            updatePanels();
+          });
+      });
+
+      updatePanels = function () {
+        d.getCurrentPagePanelStacks()
+          .then((currentPagePanelStacks) => {
+            panelStacksPanel = document.getElementById("panelStacksPanel");
+            while (panelStacksPanel.firstChild) {
+              panelStacksPanel.removeChild(panelStacksPanel.lastChild);
+            }
+
+            for (panelStack of currentPagePanelStacks) {
+              nameSpan = document.createElement("span");
+              nameSpan.innerText = panelStack.name;
+              panelStacksPanel.appendChild(nameSpan);
+              s = document.createElement("select");
+              s.setAttribute("onchange", "selectPanel(this)");
+              for (panel of panelStack.panels) {
+                o = document.createElement("option");
+                o.value = panel.key;
+                o.innerText = panel.name;
+                s.appendChild(o);
+              }
+              panelStacksPanel.appendChild(s);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
+
+      selectPanel = function (item) {
+        /*  Switch Panels Start */
+        // Switch the panelKeyHere to the panel you want to switch to
+        d.switchPanel(item.value)
+          .then((switchPanel) => {
+            console.log("Panel switched to "+switchPanel.currentPanel);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        /*  Switch Panels End */
+      };
+    </script>
+  </body>
+</html>
