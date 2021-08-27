@@ -28,7 +28,7 @@
         var container = document.getElementById("mydossier");
         //This page has multiple visualizations
         
-		    microstrategy.dossier.create({
+        microstrategy.dossier.create({
             url: url,
             enableResponsive: true,
             placeholder: container,
@@ -41,7 +41,8 @@
             },
             navigationBar: {
                 enabled: false           
-            },
+            }, 
+            //Config the visualization appearances
             visualizationAppearances: [{
               visualizationKey: key,
               size: "maximized",
@@ -49,11 +50,18 @@
             }]           
         }).then((dossier) => {
           d = dossier;
+          d.registerEventHandler(microstrategy.dossier.EventType.ON_VISUALIZATION_RESIZED, handleVisualizationResized);
         })
       });
 
-      resizeVisual = function (size) {
+      //Event handler for visualization resized.
+      handleVisualizationResized = function(e) {
+        //Add your code here
+        console.log("Visualization Resized Event");
+      }
 
+      resizeVisual = function (size) {
+        //Change Visualization Size programmatically 
         d.changeVisualizationSize({
           visualizationKey: key, 
           size: size,
