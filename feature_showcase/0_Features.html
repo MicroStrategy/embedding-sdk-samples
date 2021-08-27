@@ -49,7 +49,7 @@
                             <tr>
                                 <td>Dossier URL:</td>
                                 <td><input type="text" id="dossierURL"
-                                        value="https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/837B57D711E941BF000000806FA1298F" size="150" /></td>
+                                        value="https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/BDD72BE311EAA41CD7700080EFD5E527/K51B48BCB11EA9432DCFD0080EF75BCB2--K46" size="150" /></td>
                             </tr>
                         </table>
                         <table class="featureTable">
@@ -149,7 +149,20 @@
                                 <td><div id="filterPanel"></div></td>
                             </tr>
                         </table>
-                        
+                        <table class="visualTable">
+                            <tr>
+                                <td style="width: 100px;"><span class="firstCol">Visualizations</span></td>
+                                <td>
+                                    <div id="visualPanel">
+                                        <select id="visualSelector"></select>
+                                        <button onclick="resizeVisual('maximized')">Max Size</button>
+                                        <button onclick="resizeVisual('normal')">Normal Size</button>
+                                    </div>
+                                </td>
+                             </tr>
+
+                        </table>
+
                     </div>
                     
                     <div>
@@ -321,6 +334,8 @@
             }).then((dossier) => {
                 d = dossier;
                 d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_SWITCHED, updateFilters);
+                //This event doesn't work. TODO: Fixed in 11.3.3?
+                d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_SWITCHED, updateVisuals);
                 d.registerEventHandler(microstrategy.dossier.EventType.ON_FILTER_UPDATED, updateTextArea);
                 d.registerEventHandler(microstrategy.dossier.EventType.ON_GRAPHICS_SELECTED, updateTextArea);
                 d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_SWITCHED, updateTextArea);
@@ -331,6 +346,7 @@
                 d.registerEventHandler(microstrategy.dossier.EventType.ON_ERROR, updateTextArea);
                 updateFilters();
                 updateContainerStyle();
+                updateVisuals();
     
   
             });
@@ -391,6 +407,47 @@
                 }
 
             })
+        }
+
+        updateVisuals = function () {
+
+            d.getCurrentPageVisualizationList().then((visuals) => {
+
+                s = document.getElementById("visualSelector");
+                while (s.firstChild) {
+                    s.removeChild(s.lastChild);
+                }
+                for (visual of visuals) {
+                    
+                    o = document.createElement("option");
+                    o.value = visual.key;
+                    o.innerText = visual.name;
+                    s.appendChild(o);
+                }
+                
+
+
+            })
+        }
+
+        resizeVisual = function (size) {
+
+            visualSelector = document.getElementById("visualSelector");
+            key = visualSelector.selectedOptions[0].value;
+            d.changeVisualizationSize({
+                visualizationKey: key, 
+                size: size,
+                resizeButtonVisible: true,
+            })
+            .then((visualization) => {
+                console.log(
+                "The follow visualization is resized: ",
+                visualization
+                );
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         }
 
         applyFilter = function (element) {
