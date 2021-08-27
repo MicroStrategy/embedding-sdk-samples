@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+    <!-- This is for the jsfiddle button. You don't need it in your application.  -->
+    <script type="text/javascript" src="js/jsfiddle.js"></script>    
+    
+  </head>
+  <body>
+    
+    <div>This example shows how to use Embedding SDK to show single visualization. </div>
+
+    <div id="visualPanel">
+      <button onclick="resizeVisual('maximized')">Max Size</button>
+      <button onclick="resizeVisual('normal')">Normal Size</button>
+  </div>
+
+    <div id="mydossier"></div>
+    <script type="text/javascript">
+      
+      var url = "https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/BDD72BE311EAA41CD7700080EFD5E527/KE741E6F511EB048298250080EF95BA50--K46";
+      var key = "KE741E8C111EB0482228E0080EF953B30";
+
+      document.addEventListener("DOMContentLoaded", function(){
+      
+        var container = document.getElementById("mydossier");
+        //This page has multiple visualizations
+        
+		    microstrategy.dossier.create({
+            url: url,
+            enableResponsive: true,
+            placeholder: container,
+            containerHeight: '1000px',
+            enableCollaboration: false,
+            dockedTOC: {
+                canClose: true,
+                dockChangeable: false,
+                isDocked:false
+            },
+            navigationBar: {
+                enabled: false           
+            },
+            visualizationAppearances: [{
+              visualizationKey: key,
+              size: "maximized",
+              resizeButtonVisible: false
+            }]           
+        }).then((dossier) => {
+          d = dossier;
+        })
+      });
+
+      resizeVisual = function (size) {
+
+        d.changeVisualizationSize({
+          visualizationKey: key, 
+          size: size,
+          resizeButtonVisible: false,
+        })
+        .then((visualization) => {
+            console.log(
+            "The follow visualization is resized: ",
+            visualization
+            );
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+      }
+
+    </script>
+  </body>
+</html>
