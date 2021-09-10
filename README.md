@@ -42,6 +42,8 @@ This set of examples demonstrate specific features of Embedding SDK. Open each e
 | Filter configuration | [Demo](./feature_showcase/6_Filters.html)|
 | Using dossier instance ID | [Demo](./feature_showcase/7_Use_Dossier_Instance.html)|
 | Customizing the Library Page with URL API | [Demo](./feature_showcase/8_URL_To_LibraryPage.html)|
+| Single Visualization | [Demo](./feature_showcase/9_Single_Visualization.html)|
+| Panel Stacks | [Demo](./feature_showcase/10_PanelStack.html)|
 
 
 [Source code](https://github.com/MicroStrategy/embedding-sdk-samples/tree/master/feature_showcase/)

@@ -157,6 +157,7 @@
                                         <select id="visualSelector"></select>
                                         <button onclick="resizeVisual('maximized')">Max Size</button>
                                         <button onclick="resizeVisual('normal')">Normal Size</button>
+                                        <input type="checkbox" id="resizeButtonVisible" checked><span>Resize Button</span>
                                     </div>
                                 </td>
                              </tr>
@@ -434,10 +435,11 @@
 
             visualSelector = document.getElementById("visualSelector");
             key = visualSelector.selectedOptions[0].value;
+            resizeButtonVisible = document.getElementById("resizeButtonVisible").checked;
             d.changeVisualizationSize({
                 visualizationKey: key, 
                 size: size,
-                resizeButtonVisible: true,
+                resizeButtonVisible: resizeButtonVisible
             })
             .then((visualization) => {
                 console.log(
