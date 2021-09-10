@@ -49,7 +49,7 @@
                             <tr>
                                 <td>Dossier URL:</td>
                                 <td><input type="text" id="dossierURL"
-                                        value="https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/BDD72BE311EAA41CD7700080EFD5E527/K51B48BCB11EA9432DCFD0080EF75BCB2--K46" size="150" /></td>
+                                        value="https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/837B57D711E941BF000000806FA1298F" size="150" /></td>
                             </tr>
                         </table>
                         <table class="featureTable">
@@ -157,6 +157,7 @@
                                         <select id="visualSelector"></select>
                                         <button onclick="resizeVisual('maximized')">Max Size</button>
                                         <button onclick="resizeVisual('normal')">Normal Size</button>
+                                        <input type="checkbox" id="resizeButtonVisible" checked><span>Resize Button</span>
                                     </div>
                                 </td>
                              </tr>
@@ -434,10 +435,11 @@
 
             visualSelector = document.getElementById("visualSelector");
             key = visualSelector.selectedOptions[0].value;
+            resizeButtonVisible = document.getElementById("resizeButtonVisible").checked;
             d.changeVisualizationSize({
                 visualizationKey: key, 
                 size: size,
-                resizeButtonVisible: true,
+                resizeButtonVisible: resizeButtonVisible
             })
             .then((visualization) => {
                 console.log(
