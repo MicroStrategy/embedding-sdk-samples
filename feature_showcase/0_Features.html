@@ -335,7 +335,7 @@
             }).then((dossier) => {
                 d = dossier;
                 d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_SWITCHED, updateFilters);
-                //This event doesn't work. TODO: Fixed in 11.3.3?
+                //We should call updateVisuals after page finishes rendering. Use ON_PAGE_RENDER_FINISHED in 11.3.3.
                 d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_SWITCHED, updateVisuals);
                 d.registerEventHandler(microstrategy.dossier.EventType.ON_FILTER_UPDATED, updateTextArea);
                 d.registerEventHandler(microstrategy.dossier.EventType.ON_GRAPHICS_SELECTED, updateTextArea);
