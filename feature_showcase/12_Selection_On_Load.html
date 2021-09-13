@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script type="text/javascript"
+    src="https://env-263053.customer.cloud.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+  <!-- This is for the jsfiddle button. You don't need it in your application.  -->
+  <script type="text/javascript" src="js/jsfiddle.js"></script>
+
+</head>
+
+<body>
+
+  <div>This example shows how to make selections on visualization on the initial load. This example contains hard-coded object IDs. </div>
+
+  <div id="mydossier"></div>
+  <script type="text/javascript">
+
+    var url = "https://env-263053.customer.cloud.microstrategy.com/MicroStrategyLibrary/app/B7CA92F04B9FAE8D941C3E9B7E0CD754/E74229E60C4AF25C987F17A462BBBFA9"
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      let container = document.getElementById("mydossier")
+      //This page has multiple visualizations
+
+      microstrategy.dossier.create({
+        url: url,
+        enableResponsive: true,
+        placeholder: container,
+        containerHeight: '800px',
+        enableCollaboration: false,
+        dockedTOC: {
+          canClose: true,
+          dockChangeable: false,
+          isDocked: false
+        },
+        navigationBar: {
+          enabled: false
+        },
+        visualizationSelectedElements: [
+          {
+            visualizationkey: "K52",
+            selection: {
+              attributeElements: [
+                {
+                  attribute: {
+                    id: "8D679D3711D3E4981000E787EC6DE8A4",
+                    name: "Category" //This is optional
+                  },
+                  elements: [
+                    {
+                      id: "h3;8D679D3711D3E4981000E787EC6DE8A4",
+                      name: "Movies" //This is optional
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        ]
+      }).then((dossier) => {
+        d = dossier
+
+        d.registerEventHandler(
+          microstrategy.dossier.EventType.ON_GRAPHICS_SELECTED,
+          eventGraphicsSelectedFunction
+        );
+      })
+    })
+
+    function eventGraphicsSelectedFunction(e) {
+      console.log("Graphics Selected Event", e);
+    }
+
+  </script>
+</body>
+
+</html>
