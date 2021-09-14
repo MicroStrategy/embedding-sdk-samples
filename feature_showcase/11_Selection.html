@@ -29,7 +29,7 @@
           </select>
         </td>
     </tr>
-    <tr><td><button onclick="appSelection()">Apply </button></td></td></tr>
+    <tr><td><button onclick="applySelection()">Apply </button></td></td></tr>
 
   </table>
 
@@ -37,7 +37,7 @@
     <div id="mydossier"></div>
     <script type="text/javascript">
       
-      var url = "https://env-263053.customer.cloud.microstrategy.com/MicroStrategyLibrary/app/B7CA92F04B9FAE8D941C3E9B7E0CD754/837B57D711E941BF000000806FA1298F"
+      var url = "https://env-263053.customer.cloud.microstrategy.com/MicroStrategyLibrary/app/B7CA92F04B9FAE8D941C3E9B7E0CD754/E74229E60C4AF25C987F17A462BBBFA9"
       
       selectedAttribute = new Set()
 
@@ -71,20 +71,21 @@
       })
 
       handleVizElementChanged = function(e){
-        console.log("handleVizElementChanged", e)
+        //console.log("handleVizElementChanged", e)
       }
 
       handleGraphicSelected = function(e){
-        console.log("handleGraphicSelected", e)
+        //console.log("handleGraphicSelected", e)
       }
-      
+
       reset = function() {
         resetVisualSelector()
         resetElementSelector()
         selectedAttribute = new Set()
       }
+      
       resetVisualSelector = function() {
-        s = document.getElementById("visualSelector")
+        let s = document.getElementById("visualSelector")
         while (s.firstChild) {
             s.removeChild(s.lastChild)
         }
@@ -95,9 +96,11 @@
         d.getCurrentPageVisualizationList().then((visuals) => {
 
           resetVisualSelector()
+          let s = document.getElementById("visualSelector")
+          
           for (visual of visuals) {
               
-              o = document.createElement("option")
+              let o = document.createElement("option")
               o.value = visual.key
               o.innerText = visual.name
               s.appendChild(o)
@@ -106,7 +109,7 @@
       }
 
       resetElementSelector = function() {
-        elementPanel = document.getElementById("elementPanel")
+        let elementPanel = document.getElementById("elementPanel")
         while (elementPanel.firstChild) {
           elementPanel.removeChild(elementPanel.lastChild)
         }
@@ -114,26 +117,26 @@
 
       getElements = function() {
 
-        visualSelector = document.getElementById("visualSelector")
-        key = visualSelector.selectedOptions[0].value
+        let visualSelector = document.getElementById("visualSelector")
+        let key = visualSelector.selectedOptions[0].value
         
         d.getAvailableElements(key).then(availableElements => {
           
           attrElements = availableElements
           resetElementSelector()
-
+          let elementPanel = document.getElementById("elementPanel")
           for (attributeSelector of availableElements) {
-              attr = attributeSelector.attribute
-              elements = attributeSelector.elements
+              let attr = attributeSelector.attribute
+              let elements = attributeSelector.elements
 
-              nameSpan = document.createElement("span")
+              let nameSpan = document.createElement("span")
               nameSpan.innerText = attr.name+" "
               elementPanel.appendChild(nameSpan)
-              s = document.createElement("select")
+              let s = document.createElement("select")
               s.setAttribute("id", attr.id)
               s.setAttribute("multiple", "true")
               for (item of elements) {
-                  o = document.createElement("option")
+                  let o = document.createElement("option")
                   o.value = item.name
                   o.id = item.id
                   o.innerText = item.name
@@ -141,7 +144,7 @@
               }
               elementPanel.appendChild(s)
 
-              checkbox = document.createElement("input")
+              let checkbox = document.createElement("input")
               checkbox.setAttribute("type", "checkbox")
               checkbox.setAttribute("attrID", attr.id)
               checkbox.setAttribute("onchange", "selectAttr(this)")
@@ -155,7 +158,7 @@
       }
 
       selectAttr = function(input) {
-        attrID = input.getAttribute("attrID")
+        let attrID = input.getAttribute("attrID")
         if (input.checked) {
           selectedAttribute.add(attrID)
         } else {
@@ -163,40 +166,40 @@
         }
       }
 
-      appSelection = function() {
+      applySelection = function() {
 
-        visualSelector = document.getElementById("visualSelector")
-        key = visualSelector.selectedOptions[0].value
-        action = document.getElementById("actionSelector").value
-        attributeElements = []
+        let visualSelector = document.getElementById("visualSelector")
+        let key = visualSelector.selectedOptions[0].value
+        let action = document.getElementById("actionSelector").value
+        let attributeElements = []
 
         //Listen to specific visualization
         d.registerGraphicsSelectEventHandlerToViz(key, (selectedElements)=> {
-          console.log("GraphicsSelectEventHandlerToViz", key, selectedElements)
+          //console.log("GraphicsSelectEventHandlerToViz", key, selectedElements)
         })
         
         for (attr of attrElements) {
-          attrID = attr.attribute.id
+          let attrID = attr.attribute.id
           if (selectedAttribute.has(attrID)) {
-            elementSelector = document.getElementById(attrID)
-            attribute = { "id": attrID}
-            elements = []
+            let elementSelector = document.getElementById(attrID)
+            let attribute = { "id": attrID}
+            let elements = []
             for (o of elementSelector.selectedOptions) {
               elements.push({"id": o.id})
             }
             attributeElements.push({attribute,elements})
           }
         }
-        obj = {
+        let obj = {
           "vizKey": key,
           "action": action,
           "selection": {
             attributeElements
           }
         }
-        
+        // console.log(obj)
         d.selectVizElement(obj).then(selection => {
-          console.log(selection)
+          //console.log(selection)
         })
      
       }
