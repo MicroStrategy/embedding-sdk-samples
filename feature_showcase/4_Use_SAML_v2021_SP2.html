@@ -63,9 +63,6 @@
           }
           showDossier()
         } else if (currentTime - startTime > timeout) {
-          if (newTab && !newTab.closed) {
-            newTab.close()
-          }
           console.log("SAML login timed out, please try again");
           return null
         } else {
