@@ -63,9 +63,21 @@
         }).then((dossier) => {
           d = dossier
           d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_SWITCHED, reset)
+          d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_LOADED, reset)
+          d.registerEventHandler(microstrategy.dossier.EventType.ON_VIZ_ELEMENT_CHANGED,handleVizElementChanged)
+          d.registerEventHandler(microstrategy.dossier.EventType.ON_GRAPHICS_SELECTED,handleGraphicSelected)
+          
         })
       })
 
+      handleVizElementChanged = function(e){
+        console.log("handleVizElementChanged", e)
+      }
+
+      handleGraphicSelected = function(e){
+        console.log("handleGraphicSelected", e)
+      }
+      
       reset = function() {
         resetVisualSelector()
         resetElementSelector()
@@ -144,13 +156,11 @@
 
       selectAttr = function(input) {
         attrID = input.getAttribute("attrID")
-        console.log(selectedAttribute)
         if (input.checked) {
           selectedAttribute.add(attrID)
         } else {
           selectedAttribute.delete(attrID)
         }
-        console.log(selectedAttribute)
       }
 
       appSelection = function() {
@@ -160,6 +170,10 @@
         action = document.getElementById("actionSelector").value
         attributeElements = []
 
+        //Listen to specific visualization
+        d.registerGraphicsSelectEventHandlerToViz(key, (selectedElements)=> {
+          console.log("GraphicsSelectEventHandlerToViz", key, selectedElements)
+        })
         
         for (attr of attrElements) {
           attrID = attr.attribute.id
@@ -180,7 +194,7 @@
             attributeElements
           }
         }
-        console.log(obj)
+        
         d.selectVizElement(obj).then(selection => {
           console.log(selection)
         })
