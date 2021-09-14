@@ -19,10 +19,10 @@
 
     <div id="mydossier"></div>
     <script type="text/javascript">
-      var url = "https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/5587CB0B11EB8297835E0080AFEB08B5/W997CC8D03CCF4777942A0A56C96D5B4A--K46";
+      var url = "https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/5587CB0B11EB8297835E0080AFEB08B5";
       
       document.addEventListener("DOMContentLoaded", function () {
-        var container = document.getElementById("mydossier");
+        let container = document.getElementById("mydossier");
         
         microstrategy.dossier
           .create({
@@ -42,26 +42,31 @@
           })
           .then((dossier) => {
             d = dossier;
+            
+            d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_SWITCHED, updatePanels);
+            d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_LOADED, updatePanels);
+            d.registerEventHandler(microstrategy.dossier.EventType.ON_PANEL_SWITCHED, handlePanelSwitched);
             updatePanels();
           });
       });
 
+      //Populate the panel selector
       updatePanels = function () {
         d.getCurrentPagePanelStacks()
           .then((currentPagePanelStacks) => {
-            panelStacksPanel = document.getElementById("panelStacksPanel");
+            let panelStacksPanel = document.getElementById("panelStacksPanel");
             while (panelStacksPanel.firstChild) {
               panelStacksPanel.removeChild(panelStacksPanel.lastChild);
             }
 
             for (panelStack of currentPagePanelStacks) {
-              nameSpan = document.createElement("span");
+              let nameSpan = document.createElement("span");
               nameSpan.innerText = panelStack.name;
               panelStacksPanel.appendChild(nameSpan);
-              s = document.createElement("select");
+              let s = document.createElement("select");
               s.setAttribute("onchange", "selectPanel(this)");
               for (panel of panelStack.panels) {
-                o = document.createElement("option");
+                let o = document.createElement("option");
                 o.value = panel.key;
                 o.innerText = panel.name;
                 s.appendChild(o);
@@ -75,8 +80,6 @@
       };
 
       selectPanel = function (item) {
-        /*  Switch Panels Start */
-        // Switch the panelKeyHere to the panel you want to switch to
         d.switchPanel(item.value)
           .then((switchPanel) => {
             console.log("Panel switched to "+switchPanel.currentPanel);
@@ -84,8 +87,11 @@
           .catch((error) => {
             console.log(error);
           });
-        /*  Switch Panels End */
       };
+
+      handlePanelSwitched = function(e) {
+        console.log("Panel switched.", e)
+      }
     </script>
   </body>
 </html>
