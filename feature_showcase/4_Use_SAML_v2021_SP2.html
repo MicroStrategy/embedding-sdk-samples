@@ -13,13 +13,13 @@
 
     <div>
       <div>Server:<input type="text" id="baseURL" value="https://[Your MicroStrategy Environment]/MicroStrategyLibrary" size="100"></div>
-      <div>ProjectID: <input type="text" id="projectId" value="B7CA92F04B9FAE8D941C3E9B7E0CD754" size="100"></div>
-      <div>DossierID: <input type="text" id="dossierId" value="F6252B9211E7B348312C0080EF55DB6A" size="100"></div>
+      <div>ProjectID: <input type="text" id="projectId" value="73E53B9A11EAB363B78E0080EF8506F9" size="100"></div>
+      <div>DossierID: <input type="text" id="dossierId" value="ECC26AE1584D33F0AF9B1BA7C0DC5F0B" size="100"></div>
 
       <div>The <input type="submit" onclick="autoLogin()" value="autoLogin()" /> function can be used to automatically show dossier if the user has already logged in.</div>
-      <div>Otherwise, you can click <input type="submit" onclick="loginWithSAML()" value="Login with SAML" /> to log in. 
+      <div>Otherwise, you can click <input type="submit" onclick="login('1048576')" value="Login with SAML" /> or <input type="submit" onclick="login('4194304')" value="Login with OIDC" /> to log in. 
       </div>
-      <div>This solution works on MicroStrategy 2021 Update 2. This solution works for both SAML (loginMode=1048576) and OIDC (loginMode=4194304) authentications. Just need to change the loginMode parameter.</div>
+      <div>This solution works on MicroStrategy 2021 Update 2. This solution works for both SAML (loginMode=1048576) and OIDC (loginMode=4194304) authentications.</div>
     </div>
 
     <div id="myDossier"></div>
@@ -87,16 +87,16 @@
       }
 
       //This function will start the SAML/OIDC authentication workflow.
-      function loginWithSAML() {
+      function login(mode) {
 
         const baseURL = document.getElementById("baseURL").value;
 
         //need to store the tab. close it later.
-        this.newTab = window.open(baseURL + "/auth/login-dialog.jsp?loginMode=1048576", "_blank");
+        this.newTab = window.open(baseURL + "/auth/login-dialog.jsp?loginMode="+mode, "_blank");
 
         //Keep checking auth token every 2 seconds for up to 2 minutes.
         const startTime = Date.now()
-        checkLogin(startTime, 12000, 2000)        
+        checkLogin(startTime, 120000, 2000)
 
       };
 
