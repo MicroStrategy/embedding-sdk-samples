@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+    <!-- This is for the jsfiddle button. You don't need it in your application.  -->
+    <script type="text/javascript" src="js/jsfiddle.js"></script>    
+    
+  </head>
+  <body>
+    
+  <div>This example shows how to make selections on visualization programmatically. </div>
+
+  <table class="visualTable">
+    <tr>
+      <td><button onclick="updateVisuals()">Get Visualizations </button><select id="visualSelector"></select></td>
+    </tr>
+    <tr>
+      <td><button onclick="getElements()">Get Elements </button></td>
+    </tr>
+    <tr>
+        <td><div id="elementPanel"></div>
+          Action: 
+          <select id="actionSelector">
+            <option value="replace">replace</option>
+            <option value="add">add</option>
+            <option value="remove">remove</option>
+          </select>
+        </td>
+    </tr>
+    <tr><td><button onclick="applySelection()">Apply </button></td></td></tr>
+
+  </table>
+
+
+    <div id="mydossier"></div>
+    <script type="text/javascript">
+      
+      var url = "https://demo.microstrategy.com/MicroStrategyLibrary/app/B7CA92F04B9FAE8D941C3E9B7E0CD754/4FF2758511EAF7F3DBF40080EF359F4F"
+      
+      selectedAttribute = new Set()
+
+      document.addEventListener("DOMContentLoaded", function(){
+      
+        var container = document.getElementById("mydossier")
+        //This page has multiple visualizations
+        
+        microstrategy.dossier.create({
+            url: url,
+            enableResponsive: true,
+            placeholder: container,
+            containerHeight: '800px',
+            enableCollaboration: false,
+            dockedTOC: {
+                canClose: true,
+                dockChangeable: false,
+                isDocked:false
+            },
+            navigationBar: {
+                enabled: false           
+            }          
+        }).then((dossier) => {
+          d = dossier
+          d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_SWITCHED, reset)
+          d.registerEventHandler(microstrategy.dossier.EventType.ON_PAGE_LOADED, reset)
+          d.registerEventHandler(microstrategy.dossier.EventType.ON_VIZ_ELEMENT_CHANGED,handleVizElementChanged)
+          d.registerEventHandler(microstrategy.dossier.EventType.ON_GRAPHICS_SELECTED,handleGraphicSelected)
+          
+        })
+      })
+
+      handleVizElementChanged = function(e){
+        //console.log("handleVizElementChanged", e)
+      }
+
+      handleGraphicSelected = function(e){
+        //console.log("handleGraphicSelected", e)
+      }
+
+      reset = function() {
+        resetVisualSelector()
+        resetElementSelector()
+        selectedAttribute = new Set()
+      }
+      
+      resetVisualSelector = function() {
+        let s = document.getElementById("visualSelector")
+        while (s.firstChild) {
+            s.removeChild(s.lastChild)
+        }
+      }
+
+      updateVisuals = function () {
+
+        d.getCurrentPageVisualizationList().then((visuals) => {
+
+          resetVisualSelector()
+          let s = document.getElementById("visualSelector")
+          
+          for (visual of visuals) {
+              
+              let o = document.createElement("option")
+              o.value = visual.key
+              o.innerText = visual.name
+              s.appendChild(o)
+          }
+        })
+      }
+
+      resetElementSelector = function() {
+        let elementPanel = document.getElementById("elementPanel")
+        while (elementPanel.firstChild) {
+          elementPanel.removeChild(elementPanel.lastChild)
+        }
+      }
+
+      getElements = function() {
+
+        let visualSelector = document.getElementById("visualSelector")
+        let key = visualSelector.selectedOptions[0].value
+        
+        d.getAvailableElements(key).then(availableElements => {
+          
+          attrElements = availableElements
+          resetElementSelector()
+          let elementPanel = document.getElementById("elementPanel")
+          for (attributeSelector of availableElements) {
+              let attr = attributeSelector.attribute
+              let elements = attributeSelector.elements
+
+              let nameSpan = document.createElement("span")
+              nameSpan.innerText = attr.name+" "
+              elementPanel.appendChild(nameSpan)
+              let s = document.createElement("select")
+              s.setAttribute("id", attr.id)
+              s.setAttribute("multiple", "true")
+              for (item of elements) {
+                  let o = document.createElement("option")
+                  o.value = item.name
+                  o.id = item.id
+                  o.innerText = item.name
+                  s.appendChild(o)
+              }
+              elementPanel.appendChild(s)
+
+              let checkbox = document.createElement("input")
+              checkbox.setAttribute("type", "checkbox")
+              checkbox.setAttribute("attrID", attr.id)
+              checkbox.setAttribute("onchange", "selectAttr(this)")
+              elementPanel.appendChild(checkbox)
+
+          }          
+        }).catch(error => {
+          
+        })
+
+      }
+
+      selectAttr = function(input) {
+        let attrID = input.getAttribute("attrID")
+        if (input.checked) {
+          selectedAttribute.add(attrID)
+        } else {
+          selectedAttribute.delete(attrID)
+        }
+      }
+
+      applySelection = function() {
+
+        let visualSelector = document.getElementById("visualSelector")
+        let key = visualSelector.selectedOptions[0].value
+        let action = document.getElementById("actionSelector").value
+        let attributeElements = []
+
+        //Listen to specific visualization
+        d.registerGraphicsSelectEventHandlerToViz(key, (selectedElements)=> {
+          //console.log("GraphicsSelectEventHandlerToViz", key, selectedElements)
+        })
+        
+        for (attr of attrElements) {
+          let attrID = attr.attribute.id
+          if (selectedAttribute.has(attrID)) {
+            let elementSelector = document.getElementById(attrID)
+            let attribute = { "id": attrID}
+            let elements = []
+            for (o of elementSelector.selectedOptions) {
+              elements.push({"id": o.id})
+            }
+            attributeElements.push({attribute,elements})
+          }
+        }
+        let obj = {
+          "vizKey": key,
+          "action": action,
+          "selection": {
+            attributeElements
+          }
+        }
+        // console.log(obj)
+        d.selectVizElement(obj).then(selection => {
+          //console.log(selection)
+        })
+     
+      }
+
+    </script>
+  </body>
+</html>
