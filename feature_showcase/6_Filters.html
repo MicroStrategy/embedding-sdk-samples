@@ -14,7 +14,7 @@
       
       document.addEventListener("DOMContentLoaded", function(){
         var container = document.getElementById("mydossier"),
-          url = "https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/837B57D711E941BF000000806FA1298F";
+          url = "https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/837B57D711E941BF000000806FA1298F/W232--K146";
             microstrategy.dossier.create({
             url: url,
             enableResponsive: true,
@@ -22,9 +22,9 @@
             containerHeight: '1000px',
             filters: [
                 {
-                    "name": "Category", //You can change to the actual attribute name.
+                    "name": "Region", //You can change to the actual attribute name.
                     "selections": [
-                        {"name":"Electronics"} //You can change to the actual attribute element name.
+                        {"name":"NAM"} //You can change to the actual attribute element name.
                     ]
                 }  
             ]

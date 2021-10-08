@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script type="text/javascript"
+    src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+  <!-- This is for the jsfiddle button. You don't need it in your application.  -->
+  <script type="text/javascript" src="js/jsfiddle.js"></script>
+
+</head>
+
+<body>
+
+  <div>This example shows how to make selections on visualization on the initial load. This example contains hard-coded object IDs. </div>
+
+  <div id="mydossier"></div>
+  <script type="text/javascript">
+
+    var url = "https://demo.microstrategy.com/MicroStrategyLibrary/app/EC70648611E7A2F962E90080EFD58751/7B38B46611E7F6DD00000080EF55DDCC"
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      let container = document.getElementById("mydossier")
+      //This page has multiple visualizations
+
+      microstrategy.dossier.create({
+        url: url,
+        enableResponsive: true,
+        placeholder: container,
+        containerHeight: '800px',
+        enableCollaboration: false,
+        dockedTOC: {
+          canClose: true,
+          dockChangeable: false,
+          isDocked: false
+        },
+        navigationBar: {
+          enabled: false
+        },
+        visualizationSelectedElements: [
+          {
+            visualizationkey: "K123",
+            selection: {
+              attributeElements: [
+                {
+                  attribute: {
+                    id: "B78F2CFA48068EA0534AED8FE8A77FB6",
+                    name: "Year" //This is optional
+                  },
+                  elements: [
+                    {
+                      id: "h2016;B78F2CFA48068EA0534AED8FE8A77FB6",
+                      name: "2016" //This is optional
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        ]
+      }).then((dossier) => {
+        // 
+      })
+    })
+
+  </script>
+</body>
+
+</html>
