@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Login Example</title>
+    <script type="text/javascript" src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+    <!-- This is for the playground button. You don't need it in your application.  -->
+    <script type="text/javascript" src="js/jsfiddle.js"></script>    
+  </head>
+
+  <body>
+
+    <div>
+      <div>Server:<input type="text" id="baseURL" value="https://[Your MicroStrategy Environment]/MicroStrategyLibrary" size="100"></div>
+      <div>ProjectID: <input type="text" id="projectId" value="B7CA92F04B9FAE8D941C3E9B7E0CD754" size="100"></div>
+      <div>DossierID: <input type="text" id="dossierId" value="85D9C39DC546D9E07FB19FBF36F13A14" size="100"></div>
+
+      <p>The <input type="submit" onclick="autoLogin()" value="autoLogin()" /> function can be used to automatically show dossier if the user has already logged in.</p>
+      <p>Otherwise, you can click <input type="submit" onclick="login('1048576')" value="Login with SAML" /> or <input type="submit" onclick="login('4194304')" value="Login with OIDC" />to log in. 
+      </p>
+      <p>This solution works on MicroStrategy 2021 Update 7+. In this example, the SSO login window will be opened in the same browser tab.  This solution works for both SAML (loginMode=1048576) and OIDC (loginMode=4194304) authentications. Just need to change the loginMode parameter.</p>
+    </div>
+
+    <div id="myDossier"></div>
+
+    <script type="text/javascript">
+
+      //Fetch auth token
+      function getAuthToken() {
+        let options = {
+          method: "GET",
+          credentials: "include", // Including cookie
+          mode: "cors", // Setting as cors mode for cross origin
+          headers: { "content-type": "application/json" },
+        };
+        const baseURL = document.getElementById("baseURL").value;
+        return fetch( baseURL + "/api/auth/token",options
+        ).then((response) => {
+          if (response.ok) {
+            return response.headers.get("x-mstr-authtoken");
+          }
+          else {
+            // Log the response json if it failed
+            return null
+          }
+        }).catch((error) => {
+          // Log the error if failed
+          return null
+        })
+      }
+
+      //This function will automatically show the dossier, if user has already logged into MicroStrategy Library. 
+      function autoLogin() {
+
+        getAuthToken().then(function(token) {
+          if (!!token) {
+            //If we have auth token, show dossier.
+            showDossier();
+          } 
+        })
+      }
+
+      function login(mode) {
+
+        //listen to the message will be sent from MicroStrategy Library login page
+        window.addEventListener("message", messageEventListener);
+
+        const baseURL = document.getElementById("baseURL").value;
+        // Open the login page in the same browser tab.
+        window.open(baseURL + "/auth/login-dialog.jsp?loginMode="+mode+"&redirectURL=" + encodeURIComponent(location.href), "_top");
+      };
+
+      function messageEventListener() {
+
+        //SAML auth is complete
+        window.removeEventListener("message", messageEventListener);
+
+        showDossier();
+
+      }
+
+      function showDossier() {
+        var baseURL = document.getElementById("baseURL").value
+        var projectId = document.getElementById("projectId").value
+        var dossierId = document.getElementById("dossierId").value
+
+        var placeHolderDiv = document.getElementById("myDossier");
+        var dossierUrl = baseURL + '/app/' + projectId + '/' + dossierId;
+        microstrategy.dossier.create({
+          placeholder: placeHolderDiv,
+          url: dossierUrl,
+          enableCustomAuthentication: true,
+          enableResponsive: true,
+          customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
+          getLoginToken: getAuthToken,
+          containerHeight: '1000px'
+        }).then(function(dossier) {
+          // use the dossier instance if you need
+        });
+      }
+
+      autoLogin();
+
+    </script>
+
+  </body>
+
+</html>
