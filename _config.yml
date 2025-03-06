@@ -1,5 +1,5 @@
 theme: jekyll-theme-cayman
-title: MicroStrategy Embedding SDK Samples
+title: Embedding SDK Samples
 
 exclude:
   - "page_navigation/src"

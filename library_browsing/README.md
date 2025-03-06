@@ -1,10 +1,10 @@
-## MicroStrategy REST API Example
+## REST API Example
 
 This application demonstrates the functionalities of embedding dossier and report. You can also search reports by name. You can see the result in a list view. Report or Dossier will open when you click on it.
 
 ### Configuration
 
-API.js is the JavaScript wrapper class for MicroStrategy REST API used by this application. 
+API.js is the JavaScript wrapper class for REST API used by this application. 
 
 The main.js has the business logic for the application. 
 
@@ -20,12 +20,12 @@ This page shows multiple reports which can be embedded into the page. Users can 
 
 ### Code Explanation
 
-```fetch()``` method in API.js is to execute MicroStrategy REST API. The response json collected with the help of ```json()``` method. Most of the methods in API.js return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). 
+```fetch()``` method in API.js is to execute REST API. The response json collected with the help of ```json()``` method. Most of the methods in API.js return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). 
 
 
 ### Workflow
 
-The following REST APIs are used in this project. For more information about MicroStrategy REST API, please visit [the official documentation](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API.htm) and play with [the live API Explorer](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html). 
+The following REST APIs are used in this project. For more information about REST API, please visit [the official documentation](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API.htm) and play with [the live API Explorer](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html). 
 
 
 1. [Authenticate a user - Login](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#/Authentication/postLogin)
