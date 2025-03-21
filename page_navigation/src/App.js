@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      pageName: "MicroStrategy Embedding SDK Example - Page Navigation"
+      pageName: "Embedding SDK Example - Page Navigation"
     }
   }
 
@@ -22,7 +22,7 @@ class App extends Component {
         const currCh = window.dossier.children[window.dossier.currentChapterIndex]
         const currPage = currCh.children[currCh.currentPageIndex]
         return {
-          pageName: "MicroStrategy Embedding SDK Example - " + currPage.name
+          pageName: "Embedding SDK Example - " + currPage.name
         }
       })
     }

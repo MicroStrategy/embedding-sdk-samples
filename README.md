@@ -1,26 +1,26 @@
-# MicroStrategy Embedding SDK Samples
+# Embedding SDK Samples
 
 A collection of samples highlighting functionality and workflows of the Embedding SDK. 
 
-## MicroStrategy Embedding SDK
+## Embedding SDK
 
-MicroStrategy Embedding SDK allows you to quickly embed MicroStrategy Dossier into any web application in a responsive manner. It also allows you to control the behavior of your dossier using JavaScript code, such as navigation, filtering, manipulating the interfaces, event handling, etc. 
+Embedding SDK allows you to quickly embed MicroStrategy Dossier into any web application in a responsive manner. It also allows you to control the behavior of your dossier using JavaScript code, such as navigation, filtering, manipulating the interfaces, event handling, etc. 
 
 
-For more information, please visit the official documentation of [MicroStrategy Embedding SDK](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/EmbeddingSDK/Content/topics/Intro_to_the_Embedding_SDK.htm). 
+For more information, please visit the official documentation of [Embedding SDK](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/EmbeddingSDK/Content/topics/Intro_to_the_Embedding_SDK.htm). 
 
-### How to get MicroStrategy Embedding SDK?
+### How to get Embedding SDK?
 
-MicroStrategy Embedding SDK is included in your MicroStrategy Library Server.  You can use it from your web application using a URL like this:
+Embedding SDK is included in your MicroStrategy Library Server.  You can use it from your web application using a URL like this:
 
 
  https://[YOUR Environment]/MicroStrategyLibrary/javascript/embeddinglib.js
 
-## MicroStrategy REST API
+## REST API
 
-MicroStrategy REST API is the backbone of MicroStrategy's open architecture. MicroStrategy REST API is widely used in this project. 
+REST API is the backbone of MicroStrategy's open architecture. REST API is widely used in this project. 
 
-For more information about MicroStrategy REST API, please visit [the official documentation](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API.htm) and play with [the live API Explorer](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html). 
+For more information about REST API, please visit [the official documentation](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API.htm) and play with [the live API Explorer](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html). 
 
 
 
@@ -62,7 +62,7 @@ This example shows how to build a web page to show all the dossiers and document
 
 ## Single-Dossier React Application
 
-MicroStrategy Dossier can be used as a standalone application.  This example shows how to build a React-based single-dossier application using MicroStrategy Embedding SDK.
+MicroStrategy Dossier can be used as a standalone application.  This example shows how to build a React-based single-dossier application using Embedding SDK.
 
 [Demo](./page_navigation/site)
 
